@@ -1,0 +1,1 @@
+C:\Users\PHUOC\AndroidStudioProjects\DoAnTest2\sdk\build\intermediates\cxx\RelWithDebInfo\685p17a3\obj\arm64-v8a

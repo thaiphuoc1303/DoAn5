@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">DoAnTest</string>
+    <string name="SignIn">Sign in</string>
+    <string name="email">Email</string>
+    <string name="chuacotaikhoan">Don\'t have an account? Sign up now!</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="SignUp">Sign up</string>
+    <string name="Field_cannot_be_left_blank">Field cannot be left blank</string>
+    <string name="Confirm_password_incorrect">Confirm password incorrect</string>
+    <string name="home">Home</string>
+    <string name="account">Account</string>
+    <string name="library">Library</string>
+    <string name="notification">Notification</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="logout">Log out</string>
+</resources>

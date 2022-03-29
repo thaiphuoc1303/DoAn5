@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DoAnTest</string>
+    <string name="SignIn">Đăng nhập</string>
+    <string name="email">Email</string>
+    <string name="chuacotaikhoan">Bạn chưa có tài khoản? Đăng ký ngay!</string>
+    <string name="password">Mật khẩu</string>
+    <string name="name">Tên</string>
+    <string name="confirm_password">Xác nhận mật khẩu</string>
+    <string name="SignUp">Đăng ký</string>
+    <string name="Field_cannot_be_left_blank">Trường không được để trống</string>
+    <string name="Confirm_password_incorrect">Mật khẩu không khớp</string>
+    <string name="home">Trang chủ</string>
+    <string name="account">Tài khoản</string>
+    <string name="library">Thư viện</string>
+    <string name="notification">Thông báo</string>
+    <string name="logout">Đăng xuất</string>
+</resources>
