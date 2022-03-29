@@ -11,11 +11,17 @@
         android:orientation="horizontal">
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="a"
+        android:text="" />
+
     <ImageView
         android:id="@+id/imgageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
 
     <HorizontalScrollView
