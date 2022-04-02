@@ -23,53 +23,66 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp">
-
+        android:background="#A3434343"
+        android:layout_alignParentBottom="true">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Button" />
 
             <Button
+                android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Button" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Button" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Button" />
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Button"
-                android:textColor="#ff00" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/btnText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/account" />
+                android:background="@drawable/shape_button_bottom"
+                android:text="Text"
+                android:textAlignment="center"
+                app:srcCompat="@drawable/format_textbox"
+                app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/btnContrast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_button_bottom"
+                app:srcCompat="@drawable/contrast_circle"
+                app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/btnBrightness"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_button_bottom"
+                app:srcCompat="@drawable/ic_brightness_24"
+                app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/btnCrop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_button_bottom"
+                app:srcCompat="@drawable/ic_crop_24"
+                app:tint="@color/white" />
+
         </LinearLayout>
     </HorizontalScrollView>
+
 
 </RelativeLayout>
