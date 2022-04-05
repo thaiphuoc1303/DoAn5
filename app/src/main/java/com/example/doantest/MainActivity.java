@@ -12,6 +12,8 @@ import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import org.opencv.core.Mat;
+
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         UserFragment userFragment = new UserFragment();
 
         initUI();
+        Mat mat = new Mat();
     }
     void initUI() {
 
