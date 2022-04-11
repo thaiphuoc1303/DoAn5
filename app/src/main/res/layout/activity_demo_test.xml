@@ -5,78 +5,129 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DemoTestActivity">
+
+    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+        android:id="@+id/imgview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+    </com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="#A3434343"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true">
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_undo_24"
+            app:tint="@color/white"
+            android:background="@drawable/shape_button_bottom"/>
 
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_redo_24"
+            app:tint="@color/white"
+            android:background="@drawable/shape_button_bottom"/>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imgageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <HorizontalScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#A3434343"
+        android:orientation="vertical"
         android:layout_alignParentBottom="true">
         <LinearLayout
+            android:id="@+id/controlview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:maxHeight="5dp"
+                android:progressDrawable="@drawable/seekbar_custom"
+                android:thumb="@drawable/ic_brightness_24" />
 
-            <Button
-                android:id="@+id/button3"
+            <EditText
+                android:id="@+id/editTextNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Button" />
-
-            <ImageButton
-                android:id="@+id/btnText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_button_bottom"
-                android:text="Text"
-                android:textAlignment="center"
-                app:srcCompat="@drawable/format_textbox"
-                app:tint="@color/white" />
-
-            <ImageButton
-                android:id="@+id/btnContrast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_button_bottom"
-                app:srcCompat="@drawable/contrast_circle"
-                app:tint="@color/white" />
-
-            <ImageButton
-                android:id="@+id/btnBrightness"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_button_bottom"
-                app:srcCompat="@drawable/ic_brightness_24"
-                app:tint="@color/white" />
-
-            <ImageButton
-                android:id="@+id/btnCrop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_button_bottom"
-                app:srcCompat="@drawable/ic_crop_24"
-                app:tint="@color/white" />
-
+                android:ems="3"
+                android:maxLines="100"
+                android:inputType="number" />
         </LinearLayout>
-    </HorizontalScrollView>
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#A3434343">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Button" />
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Button" />
+
+
+
+                <ImageButton
+                    android:id="@+id/btnText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    android:text="Text"
+                    android:textAlignment="center"
+                    app:srcCompat="@drawable/format_textbox"
+                    app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/btnContrast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    app:srcCompat="@drawable/contrast_circle"
+                    app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/btnBrightness"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    app:srcCompat="@drawable/ic_brightness_24"
+                    app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/btnCrop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    app:srcCompat="@drawable/ic_crop_24"
+                    app:tint="@color/white" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
 
 
 </RelativeLayout>

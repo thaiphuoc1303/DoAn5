@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 rootProject.name = "DoAnTest"
 include ':app'
 include ':sdk'
+
+include ':java'

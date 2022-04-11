@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DoAnTest</string>
     <string name="SignIn">Đăng nhập</string>
     <string name="email">Email</string>
     <string name="chuacotaikhoan">Bạn chưa có tài khoản? Đăng ký ngay!</string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DoAnTest</string>
+    <string name="app_name" translatable="false">PhotoLab</string>
     <string name="SignIn">Sign in</string>
     <string name="email">Email</string>
     <string name="chuacotaikhoan">Don\'t have an account? Sign up now!</string>

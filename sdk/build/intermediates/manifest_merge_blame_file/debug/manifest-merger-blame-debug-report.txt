@@ -3,7 +3,7 @@
 3    package="org.opencv" >
 4
 5    <uses-sdk
-6        android:minSdkVersion="21"
+6        android:minSdkVersion="26"
 6-->C:\Users\PHUOC\AndroidStudioProjects\DoAnTest2\sdk\java\AndroidManifest.xml
 7        android:targetSdkVersion="31" />
 7-->C:\Users\PHUOC\AndroidStudioProjects\DoAnTest2\sdk\java\AndroidManifest.xml

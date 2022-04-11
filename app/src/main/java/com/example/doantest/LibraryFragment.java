@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +21,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Scalar;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class LibraryFragment extends Fragment {
@@ -34,10 +37,14 @@ public class LibraryFragment extends Fragment {
     ImageView imageView;
     LinearLayout layout1, layout2;
     LayoutInflater layoutInflater;
-    Bitmap image;
+    Bitmap bitmapImage;
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_GALLARY = 2;
+    String link;
 
+    static {
+        OpenCVLoader.initDebug();
+    }
     Uri outPutfileUri;
     @Nullable
     @Override
@@ -66,11 +73,10 @@ public class LibraryFragment extends Fragment {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), DemoTestActivity.class);
-//                intent.putExtra("data", image);
-                Mat originMat = new Mat();
-//                Utils.bitmapToMat(image, originMat);
-//                startActivity(intent);
+                if(link== null) return;
+                Intent intent = new Intent(getActivity(), DemoTestActivity.class);
+                intent.putExtra("img", link);
+                startActivity(intent);
             }
         });
 
@@ -126,16 +132,16 @@ public class LibraryFragment extends Fragment {
 
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String imgDecodableString = cursor.getString(columnIndex);
+                    link = imgDecodableString;
                     cursor.close();
-                    File file = new File(imgDecodableString);
                     bitmap = BitmapFactory.decodeFile(imgDecodableString);
-                    ModelImage img = new ModelImage(bitmap);
-                    image = bitmap;
+
+                    // convert bitmap to Mat
+                    Mat image = new Mat(bitmap.getHeight(), bitmap.getWidth(), CvType.CV_8U, new Scalar(4));
+                    Utils.bitmapToMat(bitmap, image);
+
+                    bitmapImage = bitmap;
                     if(bitmap!=null){
-                        Intent intent = new Intent(getActivity(), DemoTestActivity.class);
-                        intent.putExtra("img", img);
-//                        startActivity(intent);
-//                        getActivity().finish();
                         imageView.setImageBitmap(bitmap);
                         layout2.setVisibility(View.VISIBLE);
                         layout1.setVisibility(View.GONE);

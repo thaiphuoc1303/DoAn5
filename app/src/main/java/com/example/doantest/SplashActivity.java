@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,13 +24,16 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        Objects.requireNonNull(getSupportActionBar()).hide();
-//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         setContentView(R.layout.activity_splash);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.logo_anim);
+        Animation animation2 = AnimationUtils.loadAnimation(this, R.anim.text_anim);
+        ImageView img = findViewById(R.id.imgLogo);
+        img.setAnimation(animation);
+        TextView tv = findViewById(R.id.text);
+        tv.setAnimation(animation2);
+
         Handler mHandler = new Handler();
         mHandler.postDelayed(new Runnable() {
             @Override
