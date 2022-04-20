@@ -8,12 +8,11 @@
     android:gravity="center"
     android:padding="20dp"
     tools:context=".SignUpActivity">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LOGO"
-        android:textSize="60sp"
-        />
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:src="@drawable/logo" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -21,16 +21,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
-
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileOutputStream;
 
 public class LibraryFragment extends Fragment {
     Button btnOpenCamera, btnChooseImage, btnRemove, btnEdit;
@@ -41,11 +38,6 @@ public class LibraryFragment extends Fragment {
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_GALLARY = 2;
     String link;
-
-    static {
-        OpenCVLoader.initDebug();
-    }
-    Uri outPutfileUri;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,6 +50,10 @@ public class LibraryFragment extends Fragment {
         btnEdit = (Button) view.findViewById(R.id.btnEdit);
         btnRemove = (Button) view.findViewById(R.id.btnRemove);
         layout2.setVisibility(View.GONE);
+
+//        if (bitmapImage!=null){
+//            imageView.setImageBitmap(bitmapImage);
+//        }
 
         layoutInflater = inflater;
 
@@ -73,9 +69,9 @@ public class LibraryFragment extends Fragment {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(link== null) return;
-                Intent intent = new Intent(getActivity(), DemoTestActivity.class);
-                intent.putExtra("img", link);
+                if(bitmapImage== null) return;
+                Intent intent = new Intent(getActivity(), EditActivity.class);
+                intent.putExtra("link", link);
                 startActivity(intent);
             }
         });
@@ -83,11 +79,14 @@ public class LibraryFragment extends Fragment {
         btnOpenCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                File file = new File(Environment.getExternalStorageDirectory(), "MyPhoto.jpg");
-                outPutfileUri = Uri.fromFile(file);
-                captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, outPutfileUri);
-                startActivityForResult(captureIntent, PICK_FROM_CAMERA);
+//                Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//                File file = new File(Environment.getExternalStorageDirectory(), "MyPhoto.jpg");
+//                outPutfileUri = Uri.fromFile(file);
+//                captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, outPutfileUri);
+//                startActivityForResult(captureIntent, PICK_FROM_CAMERA);
+
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, PICK_FROM_CAMERA);
             }
         });
         btnChooseImage.setOnClickListener(new View.OnClickListener() {
@@ -102,18 +101,37 @@ public class LibraryFragment extends Fragment {
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Bitmap bitmap=null;
 
         switch (requestCode) {
             case PICK_FROM_CAMERA:
-                if (resultCode == Activity.RESULT_OK) {
-                    //pic coming from camera
-                    Bitmap bitmap=null;
+                if (resultCode == Activity.RESULT_OK && data!=null) {
+
+                    bitmap = (Bitmap) data.getExtras().get("data");
+                    File file = null;
                     try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), outPutfileUri);
-                    } catch (IOException e) {
+                        file = new File(Environment.getExternalStorageDirectory() + File.separator +"Pictures/image_photolab.jpeg");
+                        Log.e("AA", file.getPath());
+                        file.delete();
+
+                        file.createNewFile();
+
+//Convert bitmap to byte array
+                        ByteArrayOutputStream  bos = new ByteArrayOutputStream();
+
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100 , bos); // YOU can also save it in JPEG
+
+                        byte[] bitmapdata = bos.toByteArray();
+//write the bytes in file
+                        FileOutputStream fos = new FileOutputStream(file);
+                        fos.write(bitmapdata);
+                        fos.flush();
+                        fos.close();
+                        link = file.getPath();
+                        Log.e("Link", link);
+                    }catch (Exception e){
                         e.printStackTrace();
                     }
-
                 }
                 break;
 
@@ -121,7 +139,6 @@ public class LibraryFragment extends Fragment {
 
                 if (resultCode == Activity.RESULT_OK) {
                     //pick image from gallery
-                    Bitmap bitmap=null;
                     Uri selectedImage = data.getData();
                     String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
@@ -141,13 +158,16 @@ public class LibraryFragment extends Fragment {
                     Utils.bitmapToMat(bitmap, image);
 
                     bitmapImage = bitmap;
-                    if(bitmap!=null){
-                        imageView.setImageBitmap(bitmap);
-                        layout2.setVisibility(View.VISIBLE);
-                        layout1.setVisibility(View.GONE);
-                    }
+
                 }
                 break;
         }
+        if(bitmap!=null){
+            bitmapImage = bitmap;
+            imageView.setImageBitmap(bitmap);
+            layout2.setVisibility(View.VISIBLE);
+            layout1.setVisibility(View.GONE);
+        }
     }
+
 }

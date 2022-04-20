@@ -14,4 +14,8 @@
     <string name="library">Thư viện</string>
     <string name="notification">Thông báo</string>
     <string name="logout">Đăng xuất</string>
+    <string name="day_ago">ngày trước</string>
+    <string name="hour_ago">giờ trước</string>
+    <string name="minute_ago">phút trước</string>
+    <string name="just_now">vừa xong</string>
 </resources>
