@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.doantest">
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -11,6 +12,7 @@
     <uses-feature
         android:name="android.hardware.camera.flash"
         android:required="false" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -25,6 +27,15 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAnTest">
+        <activity
+            android:name=".SaveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BokehEffectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TestTouchActivity"
+            android:exported="false" />
         <activity
             android:name=".LayerActivity"
             android:exported="false" />

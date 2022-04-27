@@ -12,7 +12,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import java.util.ArrayList;
 
 public class PhotoLab {
-    Mat matOrigin, matNow;
+    Mat matOrigin, matNow, matSelect;
     ArrayList<Mat>  mats;
     int now, intBrightness=0;
     String link;
@@ -21,7 +21,7 @@ public class PhotoLab {
     public PhotoLab(String link) {
         this.link = link;
         Bitmap bitmap = BitmapFactory.decodeFile(link);
-        Mat image = new Mat(bitmap.getHeight(), bitmap.getWidth(), CvType.CV_8U, new Scalar(4));
+        Mat image = new Mat(bitmap.getHeight(), bitmap.getWidth(), CvType.CV_8U);
         Utils.bitmapToMat(bitmap, image);
         matOrigin = image;
         matNow = matOrigin;

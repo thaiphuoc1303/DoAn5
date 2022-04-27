@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -30,7 +31,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 public class LibraryFragment extends Fragment {
-    Button btnOpenCamera, btnChooseImage, btnRemove, btnEdit;
+    ImageButton btnOpenCamera, btnChooseImage, btnRemove, btnEdit;
     ImageView imageView;
     LinearLayout layout1, layout2;
     LayoutInflater layoutInflater;
@@ -42,13 +43,13 @@ public class LibraryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_library, container, false);
-        btnOpenCamera = (Button) view.findViewById(R.id.btnOpenCamera);
-        btnChooseImage = (Button) view.findViewById(R.id.btnChooseImage);
+        btnOpenCamera = view.findViewById(R.id.imageButtonCamera);
+        btnChooseImage = view.findViewById(R.id.btnimage);
         imageView = (ImageView) view.findViewById(R.id.imageView);
         layout1 = (LinearLayout) view.findViewById(R.id.layout1);
         layout2 = (LinearLayout) view.findViewById(R.id.layout2);
-        btnEdit = (Button) view.findViewById(R.id.btnEdit);
-        btnRemove = (Button) view.findViewById(R.id.btnRemove);
+        btnEdit = view.findViewById(R.id.imgbtnEdit);
+        btnRemove = view.findViewById(R.id.imgbtnRemove);
         layout2.setVisibility(View.GONE);
 
 //        if (bitmapImage!=null){
@@ -112,6 +113,8 @@ public class LibraryFragment extends Fragment {
                     try {
                         file = new File(Environment.getExternalStorageDirectory() + File.separator +"Pictures/image_photolab.jpeg");
                         Log.e("AA", file.getPath());
+                        Log.e("en", Environment.getExternalStorageDirectory()+"");
+                        Log.e("file", File.separator);
                         file.delete();
 
                         file.createNewFile();
@@ -150,6 +153,7 @@ public class LibraryFragment extends Fragment {
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String imgDecodableString = cursor.getString(columnIndex);
                     link = imgDecodableString;
+                    Log.e("Link", link);
                     cursor.close();
                     bitmap = BitmapFactory.decodeFile(imgDecodableString);
 

@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EE292929"
     tools:context=".EditActivity">
 
     <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
         android:id="@+id/imgview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="350dp"
+        android:layout_height="500dp"
+        android:layout_centerInParent="true"
         android:padding="20dp"></com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
 
     <LinearLayout
@@ -19,6 +21,19 @@
         android:background="#A3434343"
         android:gravity="center"
         android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_button_bottom"
+            app:tint="@color/red"
+            app:srcCompat="@drawable/close_thick_32" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/btnUndo"
@@ -35,6 +50,20 @@
             android:background="@drawable/shape_button_bottom"
             app:srcCompat="@drawable/ic_redo_24"
             app:tint="@color/white" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_button_bottom"
+            app:tint="@color/green"
+            app:srcCompat="@drawable/ic_save_32" />
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -95,7 +124,14 @@
                     android:textAlignment="center"
                     app:srcCompat="@drawable/format_textbox"
                     app:tint="@color/white" />
-
+                <ImageButton
+                    android:id="@+id/btnBlur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    android:textAlignment="center"
+                    app:srcCompat="@drawable/blur_32"
+                    app:tint="@color/white" />
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
