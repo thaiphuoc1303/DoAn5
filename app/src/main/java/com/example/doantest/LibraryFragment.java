@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +20,20 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.doantest.Adapter.DraftImageAdapter;
+import com.example.doantest.Adapter.LibAdapter;
+import com.example.doantest.Adapter.LibImageAdapter;
+import com.example.doantest.Model.DraftImageModel;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 
 import org.opencv.android.Utils;
 import org.opencv.core.CvType;
@@ -29,13 +42,18 @@ import org.opencv.core.Scalar;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class LibraryFragment extends Fragment {
+    FirebaseUser user;
+    FirebaseStorage storage;
     ImageButton btnOpenCamera, btnChooseImage, btnRemove, btnEdit;
     ImageView imageView;
-    LinearLayout layout1, layout2;
+    LinearLayout layout1, layout2, layout3;
     LayoutInflater layoutInflater;
     Bitmap bitmapImage;
+    RecyclerView draftView, gridView;
+    ArrayList<DraftImageModel> listDraft, listLib;
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_GALLARY = 2;
     String link;
@@ -48,14 +66,55 @@ public class LibraryFragment extends Fragment {
         imageView = (ImageView) view.findViewById(R.id.imageView);
         layout1 = (LinearLayout) view.findViewById(R.id.layout1);
         layout2 = (LinearLayout) view.findViewById(R.id.layout2);
+        layout3 = (LinearLayout) view.findViewById(R.id.layout3);
         btnEdit = view.findViewById(R.id.imgbtnEdit);
         btnRemove = view.findViewById(R.id.imgbtnRemove);
         layout2.setVisibility(View.GONE);
+        draftView = view.findViewById(R.id.draftView);
+        gridView =view.findViewById(R.id.libView);
+        listDraft = new ArrayList<DraftImageModel>();
+        listLib = new ArrayList<DraftImageModel>();
 
-//        if (bitmapImage!=null){
-//            imageView.setImageBitmap(bitmapImage);
-//        }
+        LinearLayoutManager managerLayout = new LinearLayoutManager(container.getContext(), RecyclerView.HORIZONTAL, false);
+        DraftImageAdapter draftImageAdapter = new DraftImageAdapter();
+        draftView.setLayoutManager(managerLayout);
 
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(container.getContext(), 3);
+        LibImageAdapter libImageAdapter = new LibImageAdapter();
+        gridView.setLayoutManager(gridLayoutManager);
+
+
+//        managerLayout.set
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String uID = user.getUid();
+        storage = FirebaseStorage.getInstance(getString(R.string.storageReference));
+        StorageReference storageRef = storage.getReference();
+        StorageReference folder = storageRef.child("/draft/"+uID);
+        StorageReference folderLib = storageRef.child("/cloud/"+uID);
+
+        folder.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                for (StorageReference item : listResult.getItems()) {
+                    DraftImageModel model = new DraftImageModel(item.getName(), item.getPath());
+                    listDraft.add(model);
+                }
+                draftImageAdapter.setData(listDraft);
+                draftView.setAdapter(draftImageAdapter);
+            }
+        });
+
+        folderLib.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                for (StorageReference item : listResult.getItems()) {
+                    DraftImageModel model = new DraftImageModel(item.getName(), item.getPath());
+                    listLib.add(model);
+                }
+                libImageAdapter.setData(listLib);
+                gridView.setAdapter(libImageAdapter);
+            }
+        });
         layoutInflater = inflater;
 
         btnRemove.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +123,8 @@ public class LibraryFragment extends Fragment {
                 layout1.setVisibility(View.VISIBLE);
                 layout2.setVisibility(View.GONE);
                 imageView.setImageBitmap(null);
+                layout3.setVisibility(View.VISIBLE);
+                imageView.setVisibility(View.GONE);
             }
         });
 
@@ -112,9 +173,7 @@ public class LibraryFragment extends Fragment {
                     File file = null;
                     try {
                         file = new File(Environment.getExternalStorageDirectory() + File.separator +"Pictures/image_photolab.jpeg");
-                        Log.e("AA", file.getPath());
-                        Log.e("en", Environment.getExternalStorageDirectory()+"");
-                        Log.e("file", File.separator);
+
                         file.delete();
 
                         file.createNewFile();
@@ -171,6 +230,8 @@ public class LibraryFragment extends Fragment {
             imageView.setImageBitmap(bitmap);
             layout2.setVisibility(View.VISIBLE);
             layout1.setVisibility(View.GONE);
+            layout3.setVisibility(View.GONE);
+            imageView.setVisibility(View.VISIBLE);
         }
     }
 

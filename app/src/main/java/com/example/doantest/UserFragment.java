@@ -6,21 +6,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class UserFragment extends Fragment {
-    Button btnLogout;
+    ImageButton btnLogout;
+    TextView tvName;
+    FirebaseAuth mAuth;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
-        btnLogout = (Button) view.findViewById(R.id.btnLogout);
+        btnLogout = view.findViewById(R.id.btnLogout);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        tvName = view.findViewById(R.id.tvName);
+        if(user.getDisplayName()!=null){
+            tvName.setText(user.getDisplayName());
+        }
+        else {
+            tvName.setText("No Name");
+        }
+
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

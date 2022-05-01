@@ -6,7 +6,7 @@ import android.widget.ImageButton;
 import java.util.Date;
 
 public class StatusModel {
-    String name, strImg, id;
+    String name, strImg, id, stt;
     Date time;
     Bitmap img;
 
@@ -14,6 +14,15 @@ public class StatusModel {
         this.name = name;
         this.strImg = strImg;
         this.id = id;
+        this.time = time;
+        this.img = img;
+    }
+
+    public StatusModel(String name, String strImg, String id, String stt, Date time, Bitmap img) {
+        this.name = name;
+        this.strImg = strImg;
+        this.id = id;
+        this.stt = stt;
         this.time = time;
         this.img = img;
     }
