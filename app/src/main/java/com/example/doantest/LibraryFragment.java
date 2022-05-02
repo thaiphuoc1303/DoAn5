@@ -90,7 +90,7 @@ public class LibraryFragment extends Fragment {
         storage = FirebaseStorage.getInstance(getString(R.string.storageReference));
         StorageReference storageRef = storage.getReference();
         StorageReference folder = storageRef.child("/draft/"+uID);
-        StorageReference folderLib = storageRef.child("/cloud/"+uID);
+        StorageReference folderLib = storageRef.child("/cloud/"+ uID);
 
         folder.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
             @Override

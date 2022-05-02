@@ -7,9 +7,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -30,11 +32,11 @@ import org.opencv.imgproc.Imgproc;
 import java.util.ArrayList;
 
 public class PhotoLab {
-    Mat matOrigin, matNow, matSelect;
+    Mat matOrigin, matNow, matSelect, matMark, mat1c;
     ArrayList<Mat>  mats;
     int now, intBrightness=0;
     String link;
-    int size = 5;
+    int size = 5, matrixSize = 3;
     int sttDialog = 0;
 
     public PhotoLab(String link) {
@@ -81,18 +83,24 @@ public class PhotoLab {
         return bitmap;
     }
     public Dialog diaLogBlur(Context context, Mat origin){
-        Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        Dialog dialog = new Dialog(context, android.R.style.Theme_NoTitleBar_Fullscreen);
         dialog.setContentView(R.layout.dialog_bokeh);
-
-        ImageButton btnSelect, btnRemove, btnAction, btnDone;
+        ImageButton btnSelect, btnRemove, btnAction, btnDone, btnCancel;
+        Button btnActionDone = dialog.findViewById(R.id.btnActionDone);
         LinearLayout layoutSize = dialog.findViewById(R.id.controlview);
+        LinearLayout layoutactionView = dialog.findViewById(R.id.actionView);
         btnSelect = dialog.findViewById(R.id.btnSelect);
         btnRemove = dialog.findViewById(R.id.btnRemoveSelect);
         btnAction = dialog.findViewById(R.id.btnAction);
+        btnCancel = dialog.findViewById(R.id.btnCancel);
         SeekBar seekBarSize = dialog.findViewById(R.id.seekbarSize);
+        SeekBar seekBarMatrixSize = dialog.findViewById(R.id.matrixSize);
         TextView tvValue = dialog.findViewById(R.id.tvValue);
+        TextView tvMatrixSize = dialog.findViewById(R.id.tvMatrixSize);
         btnDone = dialog.findViewById(R.id.btnDone);
         SubsamplingScaleImageView scaleImageView = dialog.findViewById(R.id.imgview);
+
+        matrixSize = 3;
 
         Mat mOrigin = new Mat(origin.height(), origin.width(), CvType.CV_8UC4);
         origin.copyTo(mOrigin);
@@ -100,13 +108,14 @@ public class PhotoLab {
         origin.copyTo(newMat);
         Bitmap bitmap = Bitmap.createBitmap(origin.cols(), origin.rows(), Bitmap.Config.RGB_565);
         Utils.matToBitmap(origin, bitmap);
-        Mat matMark = new Mat(origin.height(), origin.width(), CvType.CV_8UC4);
-        Mat mat1c = new Mat(origin.height(), origin.width(), CvType.CV_8UC1);
+        matMark = new Mat(origin.height(), origin.width(), CvType.CV_8UC4);
+        mat1c = new Mat(origin.height(), origin.width(), CvType.CV_8UC1);
         scaleImageView.setImage(ImageSource.bitmap(bitmap));
         Scalar scalar = new Scalar(255, 0,0,255);
         Scalar scalarRemove = new Scalar(0, 0,0,255);
         Scalar scalar1 = new Scalar(255);
         GestureDetector gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 int intX = origin.width();
@@ -125,18 +134,10 @@ public class PhotoLab {
                         Core.addWeighted( matReview, 1, matMark, 1, 1, matReview);
                         Bitmap bitmapReview = Bitmap.createBitmap(intX, intY, Bitmap.Config.RGB_565);
                         Utils.matToBitmap(matReview, bitmapReview);
-                        scaleImageView.setImage(ImageSource.bitmap(bitmapReview));
-
+//                        scaleImageView.setImage(ImageSource.bitmap(bitmapReview));
+                        setImage(bitmapReview, scaleImageView);
                     }
                 }
-                btnDone.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        add(newMat);
-                        scaleImageView.setImage(ImageSource.bitmap(getBitMap()));
-                        dialog.dismiss();
-                    }
-                });
 
                 return true;
             }
@@ -164,6 +165,65 @@ public class PhotoLab {
                 size = seekBar.getProgress();
             }
         });
+        seekBarMatrixSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                tvMatrixSize.setText(seekBarMatrixSize.getProgress()+"");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                matrixSize = seekBarMatrixSize.getProgress();
+
+                int maxX = matOrigin.width();
+                int maxY = matOrigin.height();
+                int channel = mat1c.channels();
+                PhotoLabMatrix matrix = new PhotoLabMatrix();
+                Mat newMat1 = new Mat(maxY, maxX, CvType.CV_8UC4);
+                Bitmap newBitmap = Bitmap.createBitmap(newMat1.width(), newMat1.height(), Bitmap.Config.RGB_565);
+                AsyncTask task = new AsyncTask() {
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        Log.e("aaa", "dang xu ly");
+                        for(int i = 1; i<maxY-1; i++){
+                            for(int j = 1; j<maxX-1; j++){
+
+                                double[] px = mat1c.get(i, j);
+                                if(px[0] > 100){
+                                    PhotoLabPixel[][] plP = getMatrixMat(origin, i, j, matrixSize);
+                                    newMat1.put(i, j, matrix.MedianBlur(plP));
+//                                            Log.e("pixel", origin.get(i,j)[1]+","+newMat1.get(i,j)[1]);
+                                }
+                                else{
+                                    newMat1.put(i, j, origin.get(i, j));
+                                }
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void onPostExecute(Object o) {
+                        super.onPostExecute(o);
+                        Utils.matToBitmap(newMat1, newBitmap);
+                        Bitmap abc = Bitmap.createBitmap(newMat1.width(), newMat1.height(), Bitmap.Config.RGB_565);
+                        Utils.matToBitmap(newMat1, abc);
+                        setImage(abc, scaleImageView);
+                    }
+                    @Override
+                    protected Object doInBackground(Object[] objects) {
+                        return null;
+                    }
+                };
+                task.execute();
+            }
+        });
         btnSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,6 +234,7 @@ public class PhotoLab {
                 }
                 sttDialog = R.id.btnSelect;
                 layoutSize.setVisibility(View.VISIBLE);
+                layoutactionView.setVisibility(View.GONE);
             }
         });
         btnRemove.setOnClickListener(new View.OnClickListener() {
@@ -186,66 +247,107 @@ public class PhotoLab {
                 }
                 sttDialog = R.id.btnRemoveSelect;
                 layoutSize.setVisibility(View.VISIBLE);
+                layoutactionView.setVisibility(View.GONE);
+
             }
         });
-                btnAction.setOnClickListener(new View.OnClickListener() {
+        btnActionDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int maxX = matOrigin.width();
+                int maxY = matOrigin.height();
+                int channel = mat1c.channels();
+                PhotoLabMatrix matrix = new PhotoLabMatrix();
+                Mat newMat1 = new Mat(maxY, maxX, CvType.CV_8UC4);
+                Bitmap newBitmap = Bitmap.createBitmap(newMat1.width(), newMat1.height(), Bitmap.Config.RGB_565);
+                AsyncTask task = new AsyncTask() {
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        Log.e("aaa", "dang xu ly");
+                        for(int i = 1; i<maxY-1; i++){
+                            for(int j = 1; j<maxX-1; j++){
+
+                                double[] px = mat1c.get(i, j);
+                                if(px[0] > 100){
+                                    PhotoLabPixel[][] plP = getMatrixMat(origin, i, j, matrixSize);
+                                    newMat1.put(i, j, matrix.MedianBlur(plP));
+//                                            Log.e("pixel", origin.get(i,j)[1]+","+newMat1.get(i,j)[1]);
+                                }
+                                else{
+                                    newMat1.put(i, j, origin.get(i, j));
+                                }
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void onPostExecute(Object o) {
+                        super.onPostExecute(o);
+                        Utils.matToBitmap(newMat1, newBitmap);
+                        Bitmap abc = Bitmap.createBitmap(newMat1.width(), newMat1.height(), Bitmap.Config.RGB_565);
+                        Utils.matToBitmap(newMat1, abc);
+                        setImage(abc, scaleImageView);
+                        newMat1.copyTo(newMat);
+                        matMark = new Mat(origin.height(), origin.width(), CvType.CV_8UC4);
+                        mat1c = new Mat(origin.height(), origin.width(), CvType.CV_8UC1);
+                    }
+                    @Override
+                    protected Object doInBackground(Object[] objects) {
+                        return null;
+                    }
+                };
+                task.execute();
+            }
+        });
+        btnAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Bitmap bm = Bitmap.createBitmap(matOrigin.width(), matOrigin.height(), Bitmap.Config.RGB_565);
-                        Utils.matToBitmap(origin, bm);
-                        scaleImageView.setImage(ImageSource.bitmap(bm));
-                        int k = 1;
-                        int maxX = matOrigin.width();
-                        int maxY = matOrigin.height();
-                        int channel = mat1c.channels();
-                        PhotoLabMatrix matrix = new PhotoLabMatrix();
-                        Mat newMat1 = new Mat(maxY, maxX, CvType.CV_8UC4);
-                        Bitmap newBitmap = Bitmap.createBitmap(newMat1.width(), newMat1.height(), Bitmap.Config.RGB_565);
-                        AsyncTask task = new AsyncTask() {
-                            @Override
-                            protected void onPreExecute() {
-                                super.onPreExecute();
-                                Log.e("aaa", "dang xu ly");
-                                for(int i = 1; i<maxY-1; i++){
-                                    for(int j = 1; j<maxX-1; j++){
-                                        double[] px = mat1c.get(i, j);
-                                        if(px[0] > 100){
-                                            PhotoLabPixel[][] plP = {{new PhotoLabPixel(origin.get(i-1, j-1)), new PhotoLabPixel(origin.get(i-1, j)), new  PhotoLabPixel(origin.get(i-1, j+1))},
-                                                    {new PhotoLabPixel(origin.get(i, j-1)), new PhotoLabPixel(origin.get(i, j)), new PhotoLabPixel(origin.get(i, j+1))},
-                                                    {new PhotoLabPixel(origin.get(i+1, j-1)), new PhotoLabPixel(origin.get(i+1, j)), new PhotoLabPixel(origin.get(i+1, j+1))}};
-                                            newMat1.put(i, j, matrix.MedianBlur(plP));
-                                            Log.e("pixel", origin.get(i,j)[1]+","+newMat1.get(i,j)[1]);
-                                        }
-                                        else{
-                                            newMat1.put(i, j, origin.get(i, j));
-                                        }
+                        if (sttDialog == R.id.btnAction){
+                            layoutactionView.setVisibility(View.GONE);
+                            sttDialog = 0 ;
+                            return;
+                        }
+                        sttDialog = R.id.btnAction;
+                        layoutactionView.setVisibility(View.VISIBLE);
+                        layoutSize.setVisibility(View.GONE);
 
-                                    }
-                                }
-                            }
-
-                            @Override
-                            protected void onPostExecute(Object o) {
-                                super.onPostExecute(o);
-                                Utils.matToBitmap(newMat1, newBitmap);
-                                Bitmap abc = Bitmap.createBitmap(newMat1.width(), newMat1.height(), Bitmap.Config.RGB_565);
-                                Utils.matToBitmap(newMat1, abc);
-                                scaleImageView.setImage(ImageSource.bitmap(abc));
-                                newMat1.copyTo(newMat);
-
-                            }
-
-                            @Override
-                            protected Object doInBackground(Object[] objects) {
-                                return null;
-                            }
-                        };
-                        task.execute();
-                        Bitmap abc = Bitmap.createBitmap(newMat.width(), newMat.height(), Bitmap.Config.RGB_565);
-                        Utils.matToBitmap(newMat, abc);
-                        scaleImageView.setImage(ImageSource.bitmap(abc));
                     }
                 });
+        btnDone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        add(newMat);
+
+                        dialog.dismiss();
+                    }
+                });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+
         return dialog;
+    }
+    void setImage(Bitmap mBitmap, SubsamplingScaleImageView scaleImageView){
+        PointF pointF = scaleImageView.getCenter();
+        float scale = scaleImageView.getScale();
+        scaleImageView.setImage(ImageSource.bitmap(mBitmap));
+        scaleImageView.setScaleAndCenter(scale, pointF);
+    }
+
+    // getMatrixMat(origin, i, j, 1);
+    PhotoLabPixel[][] getMatrixMat(Mat oMat, int i, int j, int k){
+        PhotoLabPixel[][] arr = new PhotoLabPixel[2*k+1][2*k+1];
+        int m = i - k, n = j - k;
+        for(int x = 0; x <= 2 * k; x++){
+            for(int y = 0; y <= 2 * k; y++){
+                arr[x][y] = new PhotoLabPixel(oMat.get(m+x, n+y));
+            }
+        }
+        return arr;
     }
 }
