@@ -12,6 +12,11 @@ public class DraftImageModel {
         this.link = link;
     }
 
+    public DraftImageModel(Bitmap bitmap, String name) {
+        this.bitmap = bitmap;
+        this.name = name;
+    }
+
     public DraftImageModel(String name, String link) {
         this.name = name;
         this.link = link;

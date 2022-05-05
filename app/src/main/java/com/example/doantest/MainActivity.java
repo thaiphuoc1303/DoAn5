@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     NotificationFragment notificationFragment;
     UserFragment userFragment;
     static {
+        System.loadLibrary("NativeImageProcessor");
         if(OpenCVLoader.initDebug()){
         }
     }

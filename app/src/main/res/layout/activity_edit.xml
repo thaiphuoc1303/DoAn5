@@ -132,6 +132,15 @@
                     android:textAlignment="center"
                     app:srcCompat="@drawable/blur_32"
                     app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/btnFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    android:textAlignment="center"
+                    app:tint="@color/white"
+                    app:srcCompat="@drawable/image_filter" />
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>

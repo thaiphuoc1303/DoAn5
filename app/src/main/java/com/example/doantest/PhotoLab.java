@@ -2,23 +2,37 @@ package com.example.doantest;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PointF;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.example.doantest.Adapter.FilterListAdapter;
+import com.example.doantest.Interface.ClickItemFilterListener;
+import com.example.doantest.Model.DraftImageModel;
+import com.example.doantest.Model.FilterModel;
+import com.example.doantest.filter.PhotoLabFilter;
+import com.zomato.photofilters.imageprocessors.Filter;
+import com.zomato.photofilters.imageprocessors.SubFilter;
+import com.zomato.photofilters.imageprocessors.subfilters.BrightnessSubFilter;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
@@ -36,8 +50,8 @@ public class PhotoLab {
     ArrayList<Mat>  mats;
     int now, intBrightness=0;
     String link;
-    int size = 5, matrixSize = 3;
-    int sttDialog = 0;
+    int size = 5, matrixSize = 3, sttDialog = 0;
+    int posFilter;
 
     public PhotoLab(String link) {
         this.link = link;
@@ -81,6 +95,11 @@ public class PhotoLab {
         Bitmap bitmap = Bitmap.createBitmap(matNow.cols(), matNow.rows(), Bitmap.Config.RGB_565);
         Utils.matToBitmap(matNow, bitmap);
         return bitmap;
+    }
+    public Mat getMat(Bitmap bitmap){
+        Mat nMat = new Mat(bitmap.getHeight(), bitmap.getWidth(), CvType.CV_8U);
+        Utils.bitmapToMat(bitmap, nMat);
+        return nMat;
     }
     public Dialog diaLogBlur(Context context, Mat origin){
         Dialog dialog = new Dialog(context, android.R.style.Theme_NoTitleBar_Fullscreen);
@@ -190,6 +209,9 @@ public class PhotoLab {
                     @Override
                     protected void onPreExecute() {
                         super.onPreExecute();
+                    }
+                    @Override
+                    protected Object doInBackground(Object[] objects) {
                         Log.e("aaa", "dang xu ly");
                         for(int i = 1; i<maxY-1; i++){
                             for(int j = 1; j<maxX-1; j++){
@@ -206,8 +228,8 @@ public class PhotoLab {
 
                             }
                         }
+                        return null;
                     }
-
                     @Override
                     protected void onPostExecute(Object o) {
                         super.onPostExecute(o);
@@ -215,10 +237,12 @@ public class PhotoLab {
                         Bitmap abc = Bitmap.createBitmap(newMat1.width(), newMat1.height(), Bitmap.Config.RGB_565);
                         Utils.matToBitmap(newMat1, abc);
                         setImage(abc, scaleImageView);
+                        Log.e("aaa", "xong ne");
                     }
+
                     @Override
-                    protected Object doInBackground(Object[] objects) {
-                        return null;
+                    protected void onProgressUpdate(Object[] values) {
+                        super.onProgressUpdate(values);
                     }
                 };
                 task.execute();
@@ -265,14 +289,14 @@ public class PhotoLab {
                     protected void onPreExecute() {
                         super.onPreExecute();
                         Log.e("aaa", "dang xu ly");
-                        for(int i = 1; i<maxY-1; i++){
-                            for(int j = 1; j<maxX-1; j++){
+                        for(int i = 0; i<maxY; i++){
+                            for(int j = 0; j<maxX; j++){
 
                                 double[] px = mat1c.get(i, j);
                                 if(px[0] > 100){
                                     PhotoLabPixel[][] plP = getMatrixMat(origin, i, j, matrixSize);
                                     newMat1.put(i, j, matrix.MedianBlur(plP));
-//                                            Log.e("pixel", origin.get(i,j)[1]+","+newMat1.get(i,j)[1]);
+//
                                 }
                                 else{
                                     newMat1.put(i, j, origin.get(i, j));
@@ -345,9 +369,108 @@ public class PhotoLab {
         int m = i - k, n = j - k;
         for(int x = 0; x <= 2 * k; x++){
             for(int y = 0; y <= 2 * k; y++){
-                arr[x][y] = new PhotoLabPixel(oMat.get(m+x, n+y));
+                if(m+x < 0 || m+x >= oMat.height() || n+y < 0 || n+y >= oMat.width()){
+                    arr[x][y] = new PhotoLabPixel(oMat.get(i, j));
+                }
+                else arr[x][y] = new PhotoLabPixel(oMat.get(m+x, n+y));
             }
         }
         return arr;
     }
+    public Dialog filterA(Context context){
+        Dialog dialog = new Dialog(context, android.R.style.Theme_NoTitleBar_Fullscreen);
+        dialog.setContentView(R.layout.dialog_filter);
+        ArrayList<FilterModel> list = new ArrayList<FilterModel>();
+
+        posFilter = 0;
+
+        ImageButton btnDone, btnCancel;
+        btnCancel = dialog.findViewById(R.id.btnCancel);
+        btnDone = dialog.findViewById(R.id.btnDone);
+//        SubsamplingScaleImageView scaleImageView = dialog.findViewById(R.id.imgview);
+        ImageView scaleImageView = dialog.findViewById(R.id.imgview);
+
+        Bitmap originBitmap = getBitMap();
+//        setImage(getBitMap(), scaleImageView);
+        scaleImageView.setImageBitmap(getBitMap());
+        PhotoLabFilterV2 photoLabFilter = new PhotoLabFilterV2();
+
+        RecyclerView rcvListFilter = dialog.findViewById(R.id.rcvListFilter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
+        FilterListAdapter adapter = new FilterListAdapter(new ClickItemFilterListener() {
+            @Override
+            public void ClickItemFilter(Bitmap bitmap, int pos) {
+                if(pos == posFilter) return;
+//                setImage(bitmap, scaleImageView);
+                scaleImageView.setImageBitmap(bitmap);
+                posFilter = pos;
+            }
+        });
+        rcvListFilter.setAdapter(adapter);
+        rcvListFilter.setLayoutManager(layoutManager);
+        Bitmap none = BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.none);
+//        set Data
+        list.add(new FilterModel(getBitMap(), "NONE", 0));
+        list.add(new FilterModel(getBitMap(), "StarLitFilter", 1));
+        list.add(new FilterModel(getBitMap(), "BlueMessFilter", 2));
+        list.add(new FilterModel(getBitMap(), "AweStruckVibeFilter", 3));
+        list.add(new FilterModel(getBitMap(), "LimeStutterFilter", 4));
+        list.add(new FilterModel(getBitMap(), "NightWhisperFilter", 5));
+        list.add(new FilterModel(getBitMap(), "Darker", 6));
+        list.add(new FilterModel(getBitMap(), "IncreaseContrast", 7));
+        list.add(new FilterModel(getBitMap(), "Brighten", 8));
+        list.add(new FilterModel(getBitMap(), "Fade", 9));
+        list.add(new FilterModel(getBitMap(), "PTL1", 10));
+        list.add(new FilterModel(getBitMap(), "PTL2", 11));
+        adapter.setData(list);
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Mat nMat = matNow;
+                Bitmap nBitMap;
+                switch (posFilter){
+                    case 1:
+                        nBitMap = photoLabFilter.getStarLitFilter().processFilter(getBitMap());
+                        break;
+                    case 2:
+                        nBitMap = photoLabFilter.getBlueMessFilter().processFilter(getBitMap());
+                        break;
+                    case 3:
+                        nBitMap = photoLabFilter.getAweStruckVibeFilter().processFilter(getBitMap());
+                        break;
+                    case 4:
+                        nBitMap = photoLabFilter.getLimeStutterFilter().processFilter(getBitMap());
+                        break;
+                    case 5:
+                        nBitMap = photoLabFilter.getNightWhisperFilter().processFilter(getBitMap());
+                        break;
+                    case 6:
+                        nBitMap = photoLabFilter.getDarker().processFilter(getBitMap());
+                        break;
+                    case 7:
+                        nBitMap = photoLabFilter.getIncreaseContrast().processFilter(getBitMap());
+                        break;
+                    case 8:
+                        nBitMap = photoLabFilter.getBrighten().processFilter(getBitMap());
+                        break;
+                    case 9:
+                        nBitMap = photoLabFilter.getFade().processFilter(getBitMap());
+                        break;
+                    case 10:
+                        nBitMap = photoLabFilter.getPTL1().processFilter(getBitMap());
+                        break;
+                    case 11:
+                        nBitMap = photoLabFilter.getPTL2().processFilter(getBitMap());
+                        break;
+                    default: nBitMap = getBitMap();
+                }
+                Utils.bitmapToMat(nBitMap, nMat);
+                add(nMat);
+                dialog.dismiss();
+            }
+        });
+        return  dialog;
+    }
+
 }

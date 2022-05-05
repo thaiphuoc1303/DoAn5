@@ -26,7 +26,7 @@ import java.io.IOException;
 
 public class EditActivity extends AppCompatActivity {
 
-    ImageButton btnUndo, btnRedo, btnCrop, btnContrast, btnText, btnBlur, btnBrightness, btnSave, btnClose;
+    ImageButton btnUndo, btnRedo, btnCrop, btnContrast, btnText, btnBlur, btnBrightness, btnSave, btnClose, btnFilter;
     String link;
     Bitmap bitmap_origin;
     SubsamplingScaleImageView sImageView;
@@ -56,12 +56,7 @@ public class EditActivity extends AppCompatActivity {
 //        Utils.bitmapToMat(bitmap_origin, image);
 
         sImageView.setImage(ImageSource.bitmap(mainPhoto.getBitMap()));
-        btnCrop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
     }
     void init(){
@@ -74,14 +69,27 @@ public class EditActivity extends AppCompatActivity {
         btnBlur = findViewById(R.id.btnBlur);
         btnSave = findViewById(R.id.btnSave);
         btnClose = findViewById(R.id.btnClose);
+        btnFilter = findViewById(R.id.btnFilter);
         sImageView = (SubsamplingScaleImageView) findViewById(R.id.imgview);
         layoutControl = findViewById(R.id.controlview);
 
         // event
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Dialog dialog = mainPhoto.filterA(EditActivity.this);
+                        dialog.show();
+                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialogInterface) {
+                                setImageViewMain(mainPhoto.getBitMap());
+                            }
+                        });
+                    }
+                });
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Environment.getExternalStorageDirectory() + File.separator +"Pictures"
                 String link = Environment.getExternalStorageDirectory() + File.separator + "Documents/PhotoLab/";
 
                 File file = new File(link);
@@ -91,7 +99,6 @@ public class EditActivity extends AppCompatActivity {
                 link +="draft.ptl";
                 file = new File(link);
                 file.delete();
-//                Imgcodecs.imwrite(link, mainPhoto.matNow);
                 Log.e("Ok", link);
                 try {
                     file.createNewFile();
