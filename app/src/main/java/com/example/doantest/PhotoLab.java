@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.util.Log;
@@ -314,8 +315,8 @@ public class PhotoLab {
                         Utils.matToBitmap(newMat1, abc);
                         setImage(abc, scaleImageView);
                         newMat1.copyTo(newMat);
-                        matMark = new Mat(origin.height(), origin.width(), CvType.CV_8UC4);
-                        mat1c = new Mat(origin.height(), origin.width(), CvType.CV_8UC1);
+//                        matMark = new Mat(origin.height(), origin.width(), CvType.CV_8UC4);
+//                        mat1c = new Mat(origin.height(), origin.width(), CvType.CV_8UC1);
                     }
                     @Override
                     protected Object doInBackground(Object[] objects) {
@@ -470,7 +471,16 @@ public class PhotoLab {
                 dialog.dismiss();
             }
         });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         return  dialog;
     }
 
+    public void edit(Context context){
+
+    }
 }

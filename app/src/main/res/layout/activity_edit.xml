@@ -12,7 +12,7 @@
         android:layout_width="350dp"
         android:layout_height="500dp"
         android:layout_centerInParent="true"
-        android:padding="20dp"></com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
+        android:padding="20dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -140,7 +140,7 @@
                     android:background="@drawable/shape_button_bottom"
                     android:textAlignment="center"
                     app:tint="@color/white"
-                    app:srcCompat="@drawable/image_filter" />
+                    app:srcCompat="@drawable/ic_photo_filter_32" />
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>

@@ -2,15 +2,20 @@ package com.example.doantest;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PointF;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -18,6 +23,7 @@ import android.widget.LinearLayout;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.yalantis.ucrop.UCrop;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -36,6 +42,7 @@ public class EditActivity extends AppCompatActivity {
     LinearLayout layoutControl;
     int dialogStt;
     int size =5;
+    final int PIC_CROP = 321;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +57,24 @@ public class EditActivity extends AppCompatActivity {
 
         mainPhoto = new PhotoLab(link);
 
-//        Mat src = Imgcodecs.imread(link, Imgcodecs.IMREAD_COLOR);
-//        bitmap_origin = BitmapFactory.decodeFile(link);
-//        Mat image = new Mat(bitmap_origin.getHeight(), bitmap_origin.getWidth(), CvType.CV_8U, new Scalar(4));
-//        Utils.bitmapToMat(bitmap_origin, image);
-
         sImageView.setImage(ImageSource.bitmap(mainPhoto.getBitMap()));
-
-
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            Uri resultUri = UCrop.getOutput(data);
+
+            link = resultUri.getPath();
+            Log.e("Link", link);
+            Bitmap crBitmap = BitmapFactory.decodeFile(link);
+            mainPhoto.add(mainPhoto.getMat(crBitmap));
+            setImageViewMain(crBitmap);
+        }
+    }
+
+
     void init(){
         btnCrop = (ImageButton) findViewById(R.id.btnCrop);
         btnBrightness = findViewById(R.id.btnBrightness);
@@ -74,6 +90,46 @@ public class EditActivity extends AppCompatActivity {
         layoutControl = findViewById(R.id.controlview);
 
         // event
+        btnCrop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String link = Environment.getExternalStorageDirectory() + File.separator + "Documents/PhotoLab/";
+
+                File file = new File(link);
+                if(!file.exists()){
+                    file.mkdirs();
+                }
+                link +="draft.jpeg";
+                file = new File(link);
+                file.delete();
+                try {
+                    file.createNewFile();
+                    Bitmap saveBitmap = mainPhoto.getBitMap();
+//Convert bitmap to byte array
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+                    saveBitmap.compress(Bitmap.CompressFormat.JPEG, 100 , bos); // YOU can also save it in JPEG
+
+                    byte[] bitmapdata = bos.toByteArray();
+//write the bytes in file
+                    FileOutputStream fos = new FileOutputStream(file);
+                    fos.write(bitmapdata);
+                    fos.flush();
+                    fos.close();
+
+
+                    Uri picUri = FileProvider.getUriForFile(EditActivity.this, EditActivity.this.getApplicationContext().getPackageName() + ".provider", new File(link));
+                    Uri desUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory() + File.separator + "Documents/PhotoLab/", "cropped.jpeg"));
+                    UCrop.of(picUri, desUri)
+                            .withMaxResultSize(mainPhoto.getBitMap().getWidth(), mainPhoto.getBitMap().getHeight())
+                            .start(EditActivity.this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
         btnFilter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
