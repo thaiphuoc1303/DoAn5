@@ -14,5 +14,6 @@
     <color name="green">#418F00</color>
     <color name="red">#A30707</color>
     <color name="blue">#00B0FF</color>
+    <color name="bg_spinner">#C9FFFFFF</color>
 
 </resources>

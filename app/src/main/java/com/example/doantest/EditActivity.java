@@ -8,14 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -34,15 +32,11 @@ public class EditActivity extends AppCompatActivity {
 
     ImageButton btnUndo, btnRedo, btnCrop, btnContrast, btnText, btnBlur, btnBrightness, btnSave, btnClose, btnFilter;
     String link;
-    Bitmap bitmap_origin;
     SubsamplingScaleImageView sImageView;
     PhotoLab mainPhoto;
     int buttonControl=0;
     Fragment fragment;
     LinearLayout layoutControl;
-    int dialogStt;
-    int size =5;
-    final int PIC_CROP = 321;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +45,11 @@ public class EditActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        init();
         Intent intent = getIntent();
         link = (String) intent.getStringExtra("link");
-
         mainPhoto = new PhotoLab(link);
+
+        init();
 
         sImageView.setImage(ImageSource.bitmap(mainPhoto.getBitMap()));
     }
@@ -65,15 +59,12 @@ public class EditActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             Uri resultUri = UCrop.getOutput(data);
-
             link = resultUri.getPath();
-            Log.e("Link", link);
             Bitmap crBitmap = BitmapFactory.decodeFile(link);
             mainPhoto.add(mainPhoto.getMat(crBitmap));
             setImageViewMain(crBitmap);
         }
     }
-
 
     void init(){
         btnCrop = (ImageButton) findViewById(R.id.btnCrop);
@@ -90,6 +81,19 @@ public class EditActivity extends AppCompatActivity {
         layoutControl = findViewById(R.id.controlview);
 
         // event
+        btnText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = mainPhoto.textDiaLog(EditActivity.this, EditActivity.this);
+                dialog.show();
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        setImageViewMain(mainPhoto.getBitMap());
+                    }
+                });
+            }
+        });
         btnCrop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,7 +137,7 @@ public class EditActivity extends AppCompatActivity {
         btnFilter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Dialog dialog = mainPhoto.filterA(EditActivity.this);
+                        Dialog dialog = mainPhoto.addFilter(EditActivity.this);
                         dialog.show();
                         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override

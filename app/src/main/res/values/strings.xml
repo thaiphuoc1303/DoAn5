@@ -22,4 +22,9 @@
     <string name="size">Size</string>
     <string name="storageReference" translatable="false">gs://doancoso5-test.appspot.com</string>
     <string name="done">Done</string>
+    <string name="clear">Clear</string>
+    <string name="color">Color</string>
+    <string name="textSize">Text Size</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>

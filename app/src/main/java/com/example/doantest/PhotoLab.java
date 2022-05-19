@@ -1,10 +1,13 @@
 package com.example.doantest;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -14,11 +17,15 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,10 +34,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.example.doantest.Adapter.FilterListAdapter;
+import com.example.doantest.Adapter.FontAdapter;
 import com.example.doantest.Interface.ClickItemFilterListener;
 import com.example.doantest.Model.DraftImageModel;
 import com.example.doantest.Model.FilterModel;
+import com.example.doantest.Model.FontModel;
 import com.example.doantest.filter.PhotoLabFilter;
+import com.firebase.ui.auth.ui.email.CheckEmailFragment;
+import com.skydoves.colorpickerview.ColorEnvelope;
+import com.skydoves.colorpickerview.ColorPickerDialog;
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 import com.zomato.photofilters.imageprocessors.Filter;
 import com.zomato.photofilters.imageprocessors.SubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.BrightnessSubFilter;
@@ -47,12 +60,16 @@ import org.opencv.imgproc.Imgproc;
 import java.util.ArrayList;
 
 public class PhotoLab {
-    Mat matOrigin, matNow, matSelect, matMark, mat1c;
+    Mat matOrigin, matNow, matText, matMark, mat1c;
     ArrayList<Mat>  mats;
-    int now, intBrightness=0;
+    int now;
     String link;
     int size = 5, matrixSize = 3, sttDialog = 0;
-    int posFilter;
+    int posFilter, layoutTextControl, textSize, font;
+    String strText;
+    Scalar sTextColor;
+    Point pointText;
+
 
     public PhotoLab(String link) {
         this.link = link;
@@ -81,26 +98,28 @@ public class PhotoLab {
             mats.remove(now+1);
         }
     }
-    public Bitmap Brightness(int n){
-        n = n - intBrightness;
-        intBrightness = n;
-        mats.get(now).convertTo(matNow, -1, 1, n);
-        remove();
-        add(matNow);
-        now++;
+    public Bitmap getBitMap(){
         Bitmap bitmap = Bitmap.createBitmap(matNow.cols(), matNow.rows(), Bitmap.Config.RGB_565);
         Utils.matToBitmap(matNow, bitmap);
         return bitmap;
     }
-    public Bitmap getBitMap(){
-        Bitmap bitmap = Bitmap.createBitmap(matNow.cols(), matNow.rows(), Bitmap.Config.RGB_565);
-        Utils.matToBitmap(matNow, bitmap);
+    public Bitmap getBitMap(Mat mMat){
+        Bitmap bitmap = Bitmap.createBitmap(mMat.cols(), mMat.rows(), Bitmap.Config.RGB_565);
+        Utils.matToBitmap(mMat, bitmap);
         return bitmap;
     }
     public Mat getMat(Bitmap bitmap){
         Mat nMat = new Mat(bitmap.getHeight(), bitmap.getWidth(), CvType.CV_8U);
         Utils.bitmapToMat(bitmap, nMat);
         return nMat;
+    }
+    public Mat addText(Mat tMat, String text, Point point, int intFont, double scale, Scalar color, int thickness){
+
+        if (text.trim().length() ==0){
+            return tMat;
+        }
+        Imgproc.putText(tMat, text, point, intFont, scale, color, thickness);
+        return tMat;
     }
     public Dialog diaLogBlur(Context context, Mat origin){
         Dialog dialog = new Dialog(context, android.R.style.Theme_NoTitleBar_Fullscreen);
@@ -378,7 +397,7 @@ public class PhotoLab {
         }
         return arr;
     }
-    public Dialog filterA(Context context){
+    public Dialog addFilter(Context context){
         Dialog dialog = new Dialog(context, android.R.style.Theme_NoTitleBar_Fullscreen);
         dialog.setContentView(R.layout.dialog_filter);
         ArrayList<FilterModel> list = new ArrayList<FilterModel>();
@@ -480,7 +499,241 @@ public class PhotoLab {
         return  dialog;
     }
 
-    public void edit(Context context){
+    public Dialog textDiaLog(Context context, Activity activity){
+        Dialog dialog = new Dialog(context, android.R.style.Theme_NoTitleBar_Fullscreen);
+        dialog.setContentView(R.layout.dialog_text);
+        SubsamplingScaleImageView imgview = (SubsamplingScaleImageView) dialog.findViewById(R.id.imgview);
 
+        matText = new Mat(matNow.height(), matNow.width(), CvType.CV_8UC4);
+        ImageButton btnCancel, btnDone, btnTextSize, btnTextColor,
+                btnTextFont, btnAddText, btnColorPicker, btnConfirm;
+        Button btnClear, btnTextDone;
+        EditText edtText = dialog.findViewById(R.id.edtText);
+        LinearLayout colorReview, layoutAddText, layoutTextFont, layoutTextColor, layoutTextSize;
+        SeekBar sbTextSize = dialog.findViewById(R.id.sbTextSize);
+        Spinner spFont = dialog.findViewById(R.id.spFont);
+
+        btnConfirm = dialog.findViewById(R.id.btnConfirm);
+        btnCancel = dialog.findViewById(R.id.btnCancel);
+        btnDone = dialog.findViewById(R.id.btnDone);
+        btnTextSize = dialog.findViewById(R.id.btnTextSize);
+        btnTextColor = dialog.findViewById(R.id.btnTextColor);
+        btnTextFont = dialog.findViewById(R.id.btnTextFont);
+        btnAddText = dialog.findViewById(R.id.btnAddText);
+        btnColorPicker = dialog.findViewById(R.id.btnColorPicker);
+        btnClear = dialog.findViewById(R.id.btnClear);
+        btnTextDone = dialog.findViewById(R.id.btnTextDone);
+        colorReview = dialog.findViewById(R.id.colorReview);
+        layoutAddText = dialog.findViewById(R.id.layoutAddText);
+        layoutTextFont = dialog.findViewById(R.id.layoutTextFont);
+        layoutTextColor = dialog.findViewById(R.id.layoutTextColor);
+        layoutTextSize = dialog.findViewById(R.id.layoutTextSize);
+
+        pointText = new Point(20, 100);
+        layoutTextControl = 0;
+        sTextColor = new Scalar( 0, 0, 0, 255);
+        strText = "";
+        font = R.font.aparo;
+        textSize = sbTextSize.getProgress();
+        colorReview.setBackgroundColor(Color.argb(255, 0, 0, 0));
+
+        layoutAddText.setVisibility(View.GONE);
+        layoutTextColor.setVisibility(View.GONE);
+        layoutTextFont.setVisibility(View.GONE);
+        layoutTextSize.setVisibility(View.GONE);
+
+        ArrayList<FontModel> listFont = new ArrayList<FontModel>();
+        listFont.add(new FontModel(R.font.aparo, "Aparo"));
+        listFont.add(new FontModel(R.font.svn_fiolex_girls, "Fiolex Girls"));
+        listFont.add(new FontModel(R.font.svn_hole_hearted, "Hole Hearted"));
+        listFont.add(new FontModel(R.font.utm_aristote, "Aristote"));
+        listFont.add(new FontModel(R.font.ablation_bold, "Ablation Bold"));
+
+        FontAdapter adapter = new FontAdapter(context, listFont);
+        spFont.setAdapter(adapter);
+
+        setImage(getBitMap(), imgview);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        btnAddText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(layoutTextControl == R.id.layoutAddText){
+                    layoutAddText.setVisibility(View.GONE);
+                    layoutTextControl =0;
+                }
+                else {
+                    if (layoutTextControl != 0 )
+                    dialog.findViewById(layoutTextControl).setVisibility(View.GONE);
+                    layoutAddText.setVisibility(View.VISIBLE);
+                    layoutTextControl = R.id.layoutAddText;
+                }
+            }
+        });
+
+        btnTextFont.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(layoutTextControl == R.id.layoutTextFont){
+                    layoutTextFont.setVisibility(View.GONE);
+                    layoutTextControl =0;
+                }
+                else {
+                    if (layoutTextControl != 0 )
+                        dialog.findViewById(layoutTextControl).setVisibility(View.GONE);
+                    layoutTextFont.setVisibility(View.VISIBLE);
+                    layoutTextControl = R.id.layoutTextFont;
+                }
+            }
+        });
+
+        btnTextColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(layoutTextControl == R.id.layoutTextColor){
+                    layoutTextColor.setVisibility(View.GONE);
+                    layoutTextControl =0;
+                }
+                else {
+                    if (layoutTextControl != 0 )
+                        dialog.findViewById(layoutTextControl).setVisibility(View.GONE);
+                    layoutTextColor.setVisibility(View.VISIBLE);
+                    layoutTextControl = R.id.layoutTextColor;
+                }
+            }
+        });
+
+        btnTextSize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(layoutTextControl == R.id.layoutTextSize){
+                    layoutTextSize.setVisibility(View.GONE);
+                    layoutTextControl =0;
+                }
+                else {
+                    if (layoutTextControl != 0 )
+                        dialog.findViewById(layoutTextControl).setVisibility(View.GONE);
+                    layoutTextSize.setVisibility(View.VISIBLE);
+                    layoutTextControl = R.id.layoutTextSize;
+                }
+            }
+        });
+
+        btnColorPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ColorPickerDialog.Builder(context)
+                        .setTitle("ColorPicker Dialog")
+                        .setPreferenceName("MyColorPickerDialog")
+                        .setPositiveButton( context.getString(R.string.confirm),
+                                new ColorEnvelopeListener() {
+                                    @Override
+                                    public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
+//                                        setLayoutColor(envelope);
+                                        int[] agrb = envelope.getArgb();
+                                        colorReview.setBackgroundColor(Color.argb(agrb[0], agrb[1], agrb[2], agrb[3]));
+                                        sTextColor = new Scalar(agrb[1], agrb[2], agrb[3], agrb[0]);
+                                        matText = addText(matNow.clone(), strText, pointText, font, textSize, sTextColor, textSize);
+                                        setImage(getBitMap(matText), imgview);
+                                    }
+                                })
+                        .setNegativeButton(context.getString(R.string.cancel),
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                })
+                        .attachAlphaSlideBar(true) // the default value is true.
+                        .attachBrightnessSlideBar(true)  // the default value is true.
+                        .setBottomSpace(12) // set a bottom space between the last slidebar and buttons.
+                        .show();
+            }
+        });
+
+        btnTextDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                strText = edtText.getText().toString();
+                matText = addText(matNow.clone(), strText, pointText, font, textSize, sTextColor, textSize);
+                setImage(getBitMap(matText), imgview);
+            }
+        });
+        spFont.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                font = listFont.get(i).getId();
+                matText = addText(matNow.clone(), strText, pointText, font, textSize, sTextColor, textSize);
+                setImage(getBitMap(matText), imgview);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        sbTextSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                textSize = seekBar.getProgress();
+                matText = addText(matNow.clone(), strText, pointText, font, textSize, sTextColor, textSize);
+                setImage(getBitMap(matText), imgview);
+            }
+        });
+
+        GestureDetector gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                PointF sCoord = imgview.viewToSourceCoord(e.getX(), e.getY());
+                pointText = new Point((int)sCoord.x, (int) sCoord.y);
+                matText = addText(matNow.clone(), strText, pointText, font, textSize, sTextColor, textSize);
+                setImage(getBitMap(matText), imgview);
+                return true;
+            }
+
+        });
+        imgview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return gestureDetector.onTouchEvent(motionEvent);
+            }
+        });
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                add(matText);
+                dialog.dismiss();
+            }
+        });
+         btnConfirm.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 edtText.setText("");
+                 add(matText);
+             }
+         });
+         btnClear.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 dialog.dismiss();
+             }
+         });
+        return dialog;
     }
 }

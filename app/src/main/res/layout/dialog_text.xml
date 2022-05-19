@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EE292929"
+    >
+
+    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+        android:id="@+id/imgview"
+        android:layout_width="350dp"
+        android:layout_height="500dp"
+        android:layout_centerInParent="true"
+        android:padding="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/actionView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#A3434343"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/shape_button_bottom"
+            app:srcCompat="@drawable/close_thick_32"
+            app:tint="@color/red" />
+
+        <ImageButton
+            android:id="@+id/btnDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/shape_button_bottom"
+            app:srcCompat="@drawable/check_bold_32"
+            app:tint="@color/green" />
+
+        <ImageButton
+            android:id="@+id/btnConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_button_bottom"
+            app:tint="@color/blue"
+            android:layout_centerInParent="true"
+            app:srcCompat="@drawable/ic_text_add" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#B7838383"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/actionView">
+
+        <LinearLayout
+            android:id="@+id/layoutAddText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp">
+
+            <EditText
+                android:id="@+id/edtText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Abc..."
+                android:text=""
+                android:textColor="@color/black"
+                android:textColorHint="#808080" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clear"
+                    android:textAllCaps="false" />
+
+                <Space
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/btnTextDone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/done"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutTextFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Font:"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:layout_margin="5dp"
+                android:spinnerMode="dropdown"
+                android:popupBackground="@color/bg_spinner"
+                android:background="@drawable/bg_spinner"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutTextColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingHorizontal="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/color"
+                android:textSize="20sp"/>
+            <LinearLayout
+                android:id="@+id/colorReview"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/red"
+                android:layout_marginHorizontal="30dp"
+                android:orientation="horizontal" />
+
+            <ImageButton
+                android:id="@+id/btnColorPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_button_bottom"
+                app:srcCompat="@drawable/ic_color_picker" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutTextSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingHorizontal="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/textSize"
+                android:textSize="20sp"/>
+
+            <SeekBar
+                android:id="@+id/sbTextSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="20"
+                android:min="1"
+                android:progress="3"
+                android:maxHeight="4dp"
+                android:progressDrawable="@drawable/seekbar"
+                android:thumb="@drawable/ic_circle_24"
+                android:thumbTint="@color/black"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/actionView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="3dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="#A3434343"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnAddText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_button_bottom"
+                app:tint="@color/white"
+                app:srcCompat="@drawable/ic_text_add" />
+
+            <ImageButton
+                android:id="@+id/btnTextFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_button_bottom"
+                app:tint="@color/white"
+                app:srcCompat="@drawable/ic_text_font" />
+
+            <ImageButton
+                android:id="@+id/btnTextColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_button_bottom"
+                app:tint="@color/white"
+                app:srcCompat="@drawable/ic_color_32" />
+
+            <ImageButton
+                android:id="@+id/btnTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_button_bottom"
+                app:tint="@color/white"
+                app:srcCompat="@drawable/ic_text_size" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

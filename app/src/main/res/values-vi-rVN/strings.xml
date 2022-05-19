@@ -20,4 +20,10 @@
     <string name="just_now">vừa xong</string>
     <string name="size">Kích thước</string>
     <string name="done">Xong</string>
+    <string name="clear">Xóa</string>
+    <string name="color">Màu</string>
+    <string name="textSize">Cỡ chữ</string>
+    <string name="cancel">Đóng</string>
+    <string name="confirm">Xác nhận</string>
+
 </resources>
