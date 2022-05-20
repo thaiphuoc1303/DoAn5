@@ -9,16 +9,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PointF;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,18 +31,13 @@ import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.example.doantest.Adapter.FilterListAdapter;
 import com.example.doantest.Adapter.FontAdapter;
-import com.example.doantest.Interface.ClickItemFilterListener;
-import com.example.doantest.Model.DraftImageModel;
+import com.example.doantest.Interface.ClickItemListener;
 import com.example.doantest.Model.FilterModel;
 import com.example.doantest.Model.FontModel;
-import com.example.doantest.filter.PhotoLabFilter;
-import com.firebase.ui.auth.ui.email.CheckEmailFragment;
+import com.example.doantest.Model.ImageModel;
 import com.skydoves.colorpickerview.ColorEnvelope;
 import com.skydoves.colorpickerview.ColorPickerDialog;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
-import com.zomato.photofilters.imageprocessors.Filter;
-import com.zomato.photofilters.imageprocessors.SubFilter;
-import com.zomato.photofilters.imageprocessors.subfilters.BrightnessSubFilter;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Core;
@@ -54,7 +45,6 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
@@ -97,6 +87,11 @@ public class PhotoLab {
         while(mats.size()>now+1){
             mats.remove(now+1);
         }
+    }
+    void replace(Mat mat){
+        matNow = mat;
+        mats.remove(now);
+        mats.add(mat);
     }
     public Bitmap getBitMap(){
         Bitmap bitmap = Bitmap.createBitmap(matNow.cols(), matNow.rows(), Bitmap.Config.RGB_565);
@@ -417,13 +412,18 @@ public class PhotoLab {
 
         RecyclerView rcvListFilter = dialog.findViewById(R.id.rcvListFilter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
-        FilterListAdapter adapter = new FilterListAdapter(new ClickItemFilterListener() {
+        FilterListAdapter adapter = new FilterListAdapter(new ClickItemListener() {
             @Override
             public void ClickItemFilter(Bitmap bitmap, int pos) {
                 if(pos == posFilter) return;
 //                setImage(bitmap, scaleImageView);
                 scaleImageView.setImageBitmap(bitmap);
                 posFilter = pos;
+            }
+
+            @Override
+            public void ClickItemImage(ImageModel imageModel) {
+
             }
         });
         rcvListFilter.setAdapter(adapter);
@@ -731,7 +731,7 @@ public class PhotoLab {
          btnClear.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-                 dialog.dismiss();
+                 edtText.setText("");
              }
          });
         return dialog;

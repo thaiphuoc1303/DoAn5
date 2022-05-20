@@ -2,7 +2,6 @@ package com.example.doantest.Adapter;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.doantest.Model.DraftImageModel;
+import com.example.doantest.Model.ImageModel;
 import com.example.doantest.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -22,9 +21,9 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class DraftImageAdapter extends  RecyclerView.Adapter<DraftImageAdapter.DraftImageHolder>{
-    private ArrayList<DraftImageModel> list;
+    private ArrayList<ImageModel> list;
     Context context;
-    public void setData(ArrayList<DraftImageModel>list){
+    public void setData(ArrayList<ImageModel>list){
         this.list = list;
         notifyDataSetChanged();
     }
@@ -38,7 +37,7 @@ public class DraftImageAdapter extends  RecyclerView.Adapter<DraftImageAdapter.D
 
     @Override
     public void onBindViewHolder(@NonNull DraftImageHolder holder, int position) {
-        DraftImageModel item = list.get(position);
+        ImageModel item = list.get(position);
         if(item==null) return;
         holder.tvName.setText(item.getName());
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();

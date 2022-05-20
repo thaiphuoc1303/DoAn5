@@ -111,9 +111,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_button_bottom"
-                    app:srcCompat="@drawable/ic_brightness_32"
+                    app:srcCompat="@drawable/ic_brightness"
                     app:tint="@color/white" />
 
+                <ImageButton
+                    android:id="@+id/btnSaturation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    app:tint="@color/white"
+                    app:srcCompat="@drawable/ic_saturation" />
+
+                <ImageButton
+                    android:id="@+id/btnVignette"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    app:tint="@color/white"
+                    app:srcCompat="@drawable/ic_vignette_32" />
 
                 <ImageButton
                     android:id="@+id/btnText"
@@ -141,6 +156,7 @@
                     android:textAlignment="center"
                     app:tint="@color/white"
                     app:srcCompat="@drawable/ic_photo_filter_32" />
+
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>

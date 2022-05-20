@@ -30,7 +30,7 @@ import java.io.IOException;
 
 public class EditActivity extends AppCompatActivity {
 
-    ImageButton btnUndo, btnRedo, btnCrop, btnContrast, btnText, btnBlur, btnBrightness, btnSave, btnClose, btnFilter;
+    ImageButton btnSaturation, btnVignette, btnUndo, btnRedo, btnCrop, btnContrast, btnText, btnBlur, btnBrightness, btnSave, btnClose, btnFilter;
     String link;
     SubsamplingScaleImageView sImageView;
     PhotoLab mainPhoto;
@@ -79,8 +79,40 @@ public class EditActivity extends AppCompatActivity {
         btnFilter = findViewById(R.id.btnFilter);
         sImageView = (SubsamplingScaleImageView) findViewById(R.id.imgview);
         layoutControl = findViewById(R.id.controlview);
+        btnVignette = findViewById(R.id.btnVignette);
+        btnSaturation = findViewById(R.id.btnSaturation);
 
         // event
+        btnSaturation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(buttonControl==R.id.btnSaturation){
+                    layoutControl.setVisibility(View.GONE);
+                    buttonControl= 0;
+                    return;
+                }
+                layoutControl.setVisibility(View.VISIBLE);
+                mainPhoto.add(mainPhoto.matNow);
+                fragment = new SaturationFragment(mainPhoto.matNow);
+                getSupportFragmentManager().beginTransaction().replace(R.id.controlview, fragment).commit();
+                buttonControl=R.id.btnSaturation;
+            }
+        });
+        btnVignette.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(buttonControl==R.id.btnVignette){
+                    layoutControl.setVisibility(View.GONE);
+                    buttonControl= 0;
+                    return;
+                }
+                layoutControl.setVisibility(View.VISIBLE);
+                mainPhoto.add(mainPhoto.matNow);
+                fragment = new VignetteFragment(mainPhoto.matNow);
+                getSupportFragmentManager().beginTransaction().replace(R.id.controlview, fragment).commit();
+                buttonControl=R.id.btnVignette;
+            }
+        });
         btnText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

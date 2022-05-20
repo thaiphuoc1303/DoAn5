@@ -1,8 +1,6 @@
 package com.example.doantest.Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,25 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.example.doantest.Interface.ClickItemFilterListener;
-import com.example.doantest.Model.DraftImageModel;
+import com.example.doantest.Interface.ClickItemListener;
 import com.example.doantest.Model.FilterModel;
 import com.example.doantest.PhotoLabFilterV2;
 import com.example.doantest.R;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 public class FilterListAdapter extends  RecyclerView.Adapter<FilterListAdapter.DraftImageHolder>{
     private ArrayList<FilterModel> list;
-    ClickItemFilterListener clickItemFilterListener;
+    ClickItemListener clickItemListener;
     Context context;
 
-    public FilterListAdapter(ClickItemFilterListener clickItemFilterListener) {
-        this.clickItemFilterListener = clickItemFilterListener;
+    public FilterListAdapter(ClickItemListener clickItemListener) {
+        this.clickItemListener = clickItemListener;
     }
 
     public void setData(ArrayList<FilterModel>list){
@@ -97,7 +90,7 @@ public class FilterListAdapter extends  RecyclerView.Adapter<FilterListAdapter.D
         holder.imgReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clickItemFilterListener.ClickItemFilter(item.getnBitmap(), item.getPos());
+                clickItemListener.ClickItemFilter(item.getnBitmap(), item.getPos());
             }
         });
     }

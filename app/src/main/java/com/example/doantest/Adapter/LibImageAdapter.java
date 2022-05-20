@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.doantest.Model.DraftImageModel;
+import com.example.doantest.Interface.ClickItemListener;
+import com.example.doantest.Model.ImageModel;
 import com.example.doantest.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -21,9 +21,17 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class LibImageAdapter extends  RecyclerView.Adapter<LibImageAdapter.LibImageHolder>{
-    private ArrayList<DraftImageModel> list;
+    private ArrayList<ImageModel> list;
+    ClickItemListener clickItemListener;
     Context context;
-    public void setData(ArrayList<DraftImageModel>list){
+
+    public LibImageAdapter() {
+    }
+
+    public  LibImageAdapter(ClickItemListener clickItemListener) {
+        this.clickItemListener = clickItemListener;
+    }
+    public void setData(ArrayList<ImageModel>list){
         this.list = list;
         notifyDataSetChanged();
     }
@@ -37,11 +45,16 @@ public class LibImageAdapter extends  RecyclerView.Adapter<LibImageAdapter.LibIm
 
     @Override
     public void onBindViewHolder(@NonNull LibImageHolder holder, int position) {
-        DraftImageModel item = list.get(position);
+        ImageModel item = list.get(position);
         if(item==null) return;
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         StorageReference ref = storageReference.child(list.get(position).getLink());
-//        Glide.with(context).load(ref).into(holder.imgReview);
+        holder.imgReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickItemListener.ClickItemImage(item);
+            }
+        });
         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

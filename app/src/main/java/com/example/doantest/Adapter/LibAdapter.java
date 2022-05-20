@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.doantest.Model.DraftImageModel;
+import com.example.doantest.Model.ImageModel;
 import com.example.doantest.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -21,9 +21,9 @@ import java.util.ArrayList;
 
 public class LibAdapter extends RecyclerView.Adapter<LibAdapter.LibViewHolder> {
     Context context;
-    ArrayList<DraftImageModel> list;
+    ArrayList<ImageModel> list;
 
-    public void setData(ArrayList<DraftImageModel> newlist){
+    public void setData(ArrayList<ImageModel> newlist){
         this.list = newlist;
         notifyDataSetChanged();
     }
@@ -38,7 +38,7 @@ public class LibAdapter extends RecyclerView.Adapter<LibAdapter.LibViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull LibViewHolder holder, int position) {
-        DraftImageModel item = list.get(position);
+        ImageModel item = list.get(position);
         if(item!= null)return;
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         StorageReference ref = storageReference.child(item.getLink());

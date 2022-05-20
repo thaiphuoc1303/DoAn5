@@ -25,5 +25,14 @@
     <string name="textSize">Cỡ chữ</string>
     <string name="cancel">Đóng</string>
     <string name="confirm">Xác nhận</string>
+    <string name="username">Tên người dùng</string>
+    <string name="Enter_your_name">Nhập tên của bạn</string>
+    <string name="change_avatar">Thay đổi ảnh đại diện</string>
+    <string name="save">Lưu lại</string>
+    <string name="edit_profile">Chỉnh sửa trang cá nhân</string>
+    <string name="brightness">Độ sáng</string>
+    <string name="contrast">Độ tương phản</string>
+    <string name="choose_your_avatar">Chọn hình đại diện của bạn:</string>
+    <string name="update_successfully">Cập nhật thành công!</string>
 
 </resources>

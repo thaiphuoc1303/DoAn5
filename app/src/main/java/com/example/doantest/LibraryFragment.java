@@ -25,9 +25,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doantest.Adapter.DraftImageAdapter;
-import com.example.doantest.Adapter.LibAdapter;
 import com.example.doantest.Adapter.LibImageAdapter;
-import com.example.doantest.Model.DraftImageModel;
+import com.example.doantest.Model.ImageModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,7 +52,7 @@ public class LibraryFragment extends Fragment {
     LayoutInflater layoutInflater;
     Bitmap bitmapImage;
     RecyclerView draftView, gridView;
-    ArrayList<DraftImageModel> listDraft, listLib;
+    ArrayList<ImageModel> listDraft, listLib;
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_GALLARY = 2;
     String link;
@@ -72,8 +71,8 @@ public class LibraryFragment extends Fragment {
         layout2.setVisibility(View.GONE);
         draftView = view.findViewById(R.id.draftView);
         gridView =view.findViewById(R.id.libView);
-        listDraft = new ArrayList<DraftImageModel>();
-        listLib = new ArrayList<DraftImageModel>();
+        listDraft = new ArrayList<ImageModel>();
+        listLib = new ArrayList<ImageModel>();
 
         LinearLayoutManager managerLayout = new LinearLayoutManager(container.getContext(), RecyclerView.HORIZONTAL, false);
         DraftImageAdapter draftImageAdapter = new DraftImageAdapter();
@@ -96,7 +95,7 @@ public class LibraryFragment extends Fragment {
             @Override
             public void onSuccess(ListResult listResult) {
                 for (StorageReference item : listResult.getItems()) {
-                    DraftImageModel model = new DraftImageModel(item.getName(), item.getPath());
+                    ImageModel model = new ImageModel(item.getName(), item.getPath());
                     listDraft.add(model);
                 }
                 draftImageAdapter.setData(listDraft);
@@ -108,7 +107,7 @@ public class LibraryFragment extends Fragment {
             @Override
             public void onSuccess(ListResult listResult) {
                 for (StorageReference item : listResult.getItems()) {
-                    DraftImageModel model = new DraftImageModel(item.getName(), item.getPath());
+                    ImageModel model = new ImageModel(item.getName(), item.getPath());
                     listLib.add(model);
                 }
                 libImageAdapter.setData(listLib);

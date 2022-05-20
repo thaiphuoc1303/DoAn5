@@ -2,22 +2,22 @@ package com.example.doantest.Model;
 
 import android.graphics.Bitmap;
 
-public class DraftImageModel {
+public class ImageModel {
     Bitmap bitmap;
     String name, link;
 
-    public DraftImageModel(Bitmap bitmap, String name, String link) {
+    public ImageModel(Bitmap bitmap, String name, String link) {
         this.bitmap = bitmap;
         this.name = name;
         this.link = link;
     }
 
-    public DraftImageModel(Bitmap bitmap, String name) {
+    public ImageModel(Bitmap bitmap, String name) {
         this.bitmap = bitmap;
         this.name = name;
     }
 
-    public DraftImageModel(String name, String link) {
+    public ImageModel(String name, String link) {
         this.name = name;
         this.link = link;
     }

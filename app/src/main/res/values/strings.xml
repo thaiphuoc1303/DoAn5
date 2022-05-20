@@ -27,4 +27,14 @@
     <string name="textSize">Text Size</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="username">UserName</string>
+    <string name="Enter_your_name">Enter Your Name</string>
+    <string name="change_avatar">Change Avatar</string>
+    <string name="save">Save</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="brightness">Brightness</string>
+    <string name="contrast">Contrast</string>
+    <string name="choose_your_avatar">Choose your Avatar:</string>
+    <string name="update_successfully">Update successfully!</string>
+    <string name="vignette" translatable="false">Vignette</string>
 </resources>
