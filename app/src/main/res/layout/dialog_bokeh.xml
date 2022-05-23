@@ -69,36 +69,47 @@
             android:id="@+id/actionView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:visibility="gone">
-
-            <SeekBar
-                android:id="@+id/matrixSize"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:max="20"
-                android:min="1"
-                android:progress="5"
-                android:maxHeight="10dp"
-                android:thumb="@drawable/ic_circle_24"
-                android:thumbTint="#452A2A"
-                android:progressDrawable="@drawable/seekbar"
-                />
-
             <TextView
-                android:id="@+id/tvMatrixSize"
-                android:layout_width="30dp"
-                android:textSize="14sp"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="3" />
-
-            <Button
-                android:id="@+id/btnActionDone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/done" />
+                android:paddingLeft="35dp"
+                android:text="@string/blur_level"
+                android:textSize="20sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <SeekBar
+                    android:id="@+id/matrixSize"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:max="20"
+                    android:min="1"
+                    android:progress="5"
+                    android:maxHeight="10dp"
+                    android:thumb="@drawable/ic_circle_24"
+                    android:thumbTint="#452A2A"
+                    android:progressDrawable="@drawable/seekbar"
+                    />
+
+                <TextView
+                    android:id="@+id/tvMatrixSize"
+                    android:layout_width="30dp"
+                    android:textSize="14sp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="3" />
+
+                <Button
+                    android:id="@+id/btnActionDone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/done" />
+            </LinearLayout>
+
         </LinearLayout>
         <LinearLayout
             android:id="@+id/controlview"
@@ -168,6 +179,14 @@
                 android:background="@drawable/shape_button_bottom"
                 app:srcCompat="@drawable/blur_32"
                 app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/btnSharpen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_sharpen"
+                android:background="@drawable/shape_button_bottom"
+                app:tint="@color/white"/>
         </LinearLayout>
     </LinearLayout>
 

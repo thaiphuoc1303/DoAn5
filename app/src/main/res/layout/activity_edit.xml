@@ -139,6 +139,15 @@
                     android:textAlignment="center"
                     app:srcCompat="@drawable/format_textbox"
                     app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/btnSharpen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    app:tint="@color/white"
+                    app:srcCompat="@drawable/ic_sharpen" />
+
                 <ImageButton
                     android:id="@+id/btnBlur"
                     android:layout_width="wrap_content"

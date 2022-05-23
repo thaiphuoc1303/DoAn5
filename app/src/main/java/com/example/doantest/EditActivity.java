@@ -30,7 +30,7 @@ import java.io.IOException;
 
 public class EditActivity extends AppCompatActivity {
 
-    ImageButton btnSaturation, btnVignette, btnUndo, btnRedo, btnCrop, btnContrast, btnText, btnBlur, btnBrightness, btnSave, btnClose, btnFilter;
+    ImageButton btnSaturation, btnSharpen, btnVignette, btnUndo, btnRedo, btnCrop, btnContrast, btnText, btnBlur, btnBrightness, btnSave, btnClose, btnFilter;
     String link;
     SubsamplingScaleImageView sImageView;
     PhotoLab mainPhoto;
@@ -81,8 +81,22 @@ public class EditActivity extends AppCompatActivity {
         layoutControl = findViewById(R.id.controlview);
         btnVignette = findViewById(R.id.btnVignette);
         btnSaturation = findViewById(R.id.btnSaturation);
+        btnSharpen = findViewById(R.id.btnSharpen);
 
         // event
+        btnSharpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = mainPhoto.dialogSharpen(EditActivity.this);
+                dialog.show();
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        setImageViewMain(mainPhoto.getBitMap());
+                    }
+                });
+            }
+        });
         btnSaturation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

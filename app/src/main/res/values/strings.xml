@@ -37,4 +37,7 @@
     <string name="choose_your_avatar">Choose your Avatar:</string>
     <string name="update_successfully">Update successfully!</string>
     <string name="vignette" translatable="false">Vignette</string>
+    <string name="create_selection">Create selection</string>
+    <string name="sharpen">Sharpen</string>
+    <string name="blur_level">Blur level</string>
 </resources>

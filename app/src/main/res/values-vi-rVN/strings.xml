@@ -34,5 +34,8 @@
     <string name="contrast">Độ tương phản</string>
     <string name="choose_your_avatar">Chọn hình đại diện của bạn:</string>
     <string name="update_successfully">Cập nhật thành công!</string>
+    <string name="create_selection">Tạo vùng chọn</string>
+    <string name="sharpen">Làm nét</string>
+    <string name="blur_level">Mức độ mờ</string>
 
 </resources>
