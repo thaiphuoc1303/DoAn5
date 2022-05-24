@@ -37,5 +37,6 @@
     <string name="create_selection">Tạo vùng chọn</string>
     <string name="sharpen">Làm nét</string>
     <string name="blur_level">Mức độ mờ</string>
+    <string name="option">Tùy chọn</string>
 
 </resources>

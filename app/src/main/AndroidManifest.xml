@@ -33,15 +33,6 @@
             android:name=".SaveActivity"
             android:exported="false" />
         <activity
-            android:name=".BokehEffectActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TestTouchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LayerActivity"
-            android:exported="false" />
-        <activity
             android:name=".EditActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />

@@ -1,12 +1,15 @@
 package com.example.doantest.filter;
+
 import com.zomato.photofilters.geometry.Point;
 import com.zomato.photofilters.imageprocessors.Filter;
 import com.zomato.photofilters.imageprocessors.subfilters.BrightnessSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.ContrastSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.ToneCurveSubFilter;
 
-public final class PhotoLabFilter {
-    public static Filter getStarLitFilter() {
+public class PhotoLabFilter {
+
+    // 1
+    public  Filter getStarLitFilter() {
         Point[] rgbKnots;
         rgbKnots = new Point[8];
         rgbKnots[0] = new Point(0, 0);
@@ -21,8 +24,8 @@ public final class PhotoLabFilter {
         filter.addSubFilter(new ToneCurveSubFilter(rgbKnots, null, null, null));
         return filter;
     }
-
-    public static Filter getBlueMessFilter() {
+    //2
+    public  Filter getBlueMessFilter() {
         Point[] redKnots;
         redKnots = new Point[8];
         redKnots[0] = new Point(0, 0);
@@ -39,8 +42,8 @@ public final class PhotoLabFilter {
         filter.addSubFilter(new ContrastSubFilter(1f));
         return filter;
     }
-
-    public static Filter getAweStruckVibeFilter() {
+    //3
+    public  Filter getAweStruckVibeFilter() {
         Point[] rgbKnots;
         Point[] redKnots;
         Point[] greenKnots;
@@ -83,8 +86,8 @@ public final class PhotoLabFilter {
         filter.addSubFilter(new ToneCurveSubFilter(rgbKnots, redKnots, greenKnots, blueKnots));
         return filter;
     }
-
-    public static Filter getLimeStutterFilter() {
+    //4
+    public  Filter getLimeStutterFilter() {
         Point[] blueKnots;
         blueKnots = new Point[3];
         blueKnots[0] = new Point(0, 0);
@@ -95,8 +98,8 @@ public final class PhotoLabFilter {
         filter.addSubFilter(new ToneCurveSubFilter(null, null, null, blueKnots));
         return filter;
     }
-
-    public static Filter getNightWhisperFilter() {
+    //5
+    public  Filter getNightWhisperFilter() {
         Point[] rgbKnots;
         Point[] redKnots;
         Point[] greenKnots;
@@ -127,34 +130,9 @@ public final class PhotoLabFilter {
         filter.addSubFilter(new ToneCurveSubFilter(rgbKnots, redKnots, greenKnots, blueKnots));
         return filter;
     }
-    // error
 
-    public static Filter getNegativeFilter(){
-        Point[] redKnots = new Point[3];
-        redKnots[0] = new Point(32, 255);
-        redKnots[1] = new Point(117, 126);
-        redKnots[2] = new Point(185, 0);
-
-        Point[] greenKnots = new Point[3];
-        greenKnots[0] = new Point(26, 255);
-        greenKnots[1] = new Point(76, 126);
-        greenKnots[2] = new Point(130, 0);
-
-        Point[] blueKnots = new Point[3];
-        blueKnots[0] = new Point(24, 253);
-        blueKnots[1] = new Point(60, 126);
-        blueKnots[2] = new Point(105, 0);
-
-        Point[] rgbKnots = new Point[2];
-        rgbKnots[0] = new Point(0, 0);
-        rgbKnots[1] = new Point(255, 255);
-
-        Filter filter = new Filter();
-        filter.addSubFilter(new ToneCurveSubFilter( rgbKnots, redKnots, greenKnots, blueKnots));
-//        filter.addSubFilter(new ToneCurveSubFilter( rgbKnots, null, null, null));
-        return filter;
-    }
-    public  static Filter getDarker(){
+    //6
+    public   Filter getDarker(){
         Point[] rgbKnots = new Point[3];
         rgbKnots[0] = new Point(0, 0);
         rgbKnots[1] = new Point(128, 100);
@@ -177,15 +155,46 @@ public final class PhotoLabFilter {
         filter.addSubFilter(new ToneCurveSubFilter( rgbKnots, redKnots, greenKnots, blueKnots));
         return filter;
     }
-    //error
-    public static Filter getIncreaseContrast(){
+
+    //7
+    public Filter getIncreaseContrast(){
         Point[] rgbKnots;
-        rgbKnots = new Point[5];
+        rgbKnots = new Point[6];
         rgbKnots[0] = new Point(0, 0);
         rgbKnots[1] = new Point(36, 16);
-        rgbKnots[2] = new Point(210, 230);
-        rgbKnots[3] = new Point(230, 250);
-        rgbKnots[4] = new Point(255, 255);
+        rgbKnots[2] = new Point(155, 155);
+        rgbKnots[3] = new Point(210, 230);
+        rgbKnots[4] = new Point(230, 250);
+        rgbKnots[5] = new Point(255, 255);
+
+        Filter filter = new Filter();
+        filter.addSubFilter(new ToneCurveSubFilter( rgbKnots, null, null, null));
+        return filter;
+    }
+
+    //8
+    public Filter getBrighten(){
+        Point[] rgbKnots;
+        rgbKnots = new Point[3];
+        rgbKnots[0] = new Point(0, 0);
+        rgbKnots[1] = new Point(212, 219);
+        rgbKnots[2] = new Point(255, 255);
+
+        Filter filter = new Filter();
+        filter.addSubFilter(new ToneCurveSubFilter( rgbKnots, null, null, null));
+        return filter;
+    }
+
+    //9
+    public Filter getFade(){
+        Point[] rgbKnots;
+        rgbKnots = new Point[6];
+        rgbKnots[0] = new Point(0, 0);
+        rgbKnots[1] = new Point(73, 65);
+        rgbKnots[2] = new Point(93, 79);
+        rgbKnots[3] = new Point(121, 140);
+        rgbKnots[4] = new Point(207, 219);
+        rgbKnots[5] = new Point(255, 236);
 
         Point[] redKnots;
         redKnots= new Point[2];
@@ -208,31 +217,72 @@ public final class PhotoLabFilter {
         return filter;
     }
 
-    public static Filter getBrighten(){
+    //10
+    public Filter getPTL1(){
         Point[] rgbKnots;
-        rgbKnots = new Point[5];
-        rgbKnots[0] = new Point(0, 0);
-        rgbKnots[1] = new Point(212, 219);
-        rgbKnots[2] = new Point(255, 255);
+        rgbKnots = new Point[2];
+        rgbKnots[0] = new Point(0, 21);
+        rgbKnots[1] = new Point(255, 238);
 
         Point[] redKnots;
         redKnots= new Point[2];
-        redKnots[0] = new Point(0, 0);
-        redKnots[1] = new Point(255, 255);
+        redKnots[0] = new Point(21, 0);
+        redKnots[1] = new Point(239, 255);
 
         Point[] greenKnots;
         greenKnots = new Point[2];
-        greenKnots[0] = new Point(0, 0);
-        greenKnots[1] = new Point(255, 255);
+        greenKnots[0] = new Point(18, 0);
+        greenKnots[1] = new Point(240, 255);
 
         Point[] blueKnots;
         blueKnots = new Point[2];
-        blueKnots[0] = new Point(0, 0);
-        blueKnots[1] = new Point(255, 255);
+        blueKnots[0] = new Point(19, 0);
+        blueKnots[1] = new Point(234, 255);
 
 
         Filter filter = new Filter();
-        filter.addSubFilter(new ToneCurveSubFilter( rgbKnots, null, null, null));
+        filter.addSubFilter(new ToneCurveSubFilter( rgbKnots, redKnots, greenKnots, blueKnots));
+        return filter;
+    }
+
+    //11
+    public Filter getPTL2(){
+        Point[] rgbKnots;
+        rgbKnots = new Point[5];
+        rgbKnots[0] = new Point(0, 21);
+        rgbKnots[1] = new Point(76, 57);
+        rgbKnots[2] = new Point(126, 129);
+        rgbKnots[3] = new Point(188, 202);
+        rgbKnots[4] = new Point(255, 255);
+
+        Point[] redKnots;
+        redKnots= new Point[5];
+        redKnots[0] = new Point(0, 0);
+        redKnots[1] = new Point(64, 46);
+        redKnots[2] = new Point(126, 126);
+        redKnots[3] = new Point(193, 178);
+        redKnots[4] = new Point(255, 255);
+
+        Point[] greenKnots;
+        greenKnots = new Point[6];
+        greenKnots[0] = new Point(0, 0);
+        greenKnots[1] = new Point(71, 53);
+        greenKnots[2] = new Point(126, 130);
+        greenKnots[3] = new Point(160, 163);
+        greenKnots[4] = new Point(193, 211);
+        greenKnots[5] = new Point(255, 255);
+
+        Point[] blueKnots;
+        blueKnots = new Point[5];
+        blueKnots[0] = new Point(0, 0);
+        blueKnots[1] = new Point(64, 83);
+        blueKnots[2] = new Point(125, 137);
+        blueKnots[3] = new Point(188, 212);
+        blueKnots[4] = new Point(255, 255);
+
+
+        Filter filter = new Filter();
+        filter.addSubFilter(new ToneCurveSubFilter( rgbKnots, redKnots, greenKnots, blueKnots));
         return filter;
     }
 }

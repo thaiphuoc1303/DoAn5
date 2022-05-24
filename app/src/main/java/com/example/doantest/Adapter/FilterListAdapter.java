@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doantest.Interface.ClickItemListener;
 import com.example.doantest.Model.FilterModel;
-import com.example.doantest.PhotoLabFilterV2;
+import com.example.doantest.filter.PhotoLabFilter;
 import com.example.doantest.R;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class FilterListAdapter extends  RecyclerView.Adapter<FilterListAdapter.D
 
     public void setData(ArrayList<FilterModel>list){
         this.list = list;
-        PhotoLabFilterV2 photoLabFilter = new PhotoLabFilterV2();
+        PhotoLabFilter photoLabFilter = new PhotoLabFilter();
         for (int i = 0 ; i < list.size(); i++){
             switch (list.get(i).getPos()){
                 case 0:
