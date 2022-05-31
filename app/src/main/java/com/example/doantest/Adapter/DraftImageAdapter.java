@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.doantest.Interface.ClickItemListener;
 import com.example.doantest.Model.ImageModel;
 import com.example.doantest.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,6 +24,10 @@ import java.util.ArrayList;
 public class DraftImageAdapter extends  RecyclerView.Adapter<DraftImageAdapter.DraftImageHolder>{
     private ArrayList<ImageModel> list;
     Context context;
+    ClickItemListener clickItemListener;
+    public DraftImageAdapter(ClickItemListener clickItemListener){
+        this.clickItemListener = clickItemListener;
+    }
     public void setData(ArrayList<ImageModel>list){
         this.list = list;
         notifyDataSetChanged();
@@ -47,6 +52,12 @@ public class DraftImageAdapter extends  RecyclerView.Adapter<DraftImageAdapter.D
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(context).load(uri).into(holder.imgReview);
+            }
+        });
+        holder.imgReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickItemListener.ClickItemImage(item);
             }
         });
     }

@@ -60,7 +60,7 @@
             android:id="@+id/btnLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/cards_heart"
+            android:src="@drawable/heart_red"
             android:background="@drawable/shape_button_bottom"
             app:tint="#ff00" />
         <ImageButton

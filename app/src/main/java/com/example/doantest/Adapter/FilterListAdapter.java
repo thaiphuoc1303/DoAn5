@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doantest.Interface.ClickItemListener;
 import com.example.doantest.Model.FilterModel;
-import com.example.doantest.filter.PhotoLabFilter;
+import com.example.doantest.Function.PhotoLabFilter;
 import com.example.doantest.R;
 
 import java.util.ArrayList;

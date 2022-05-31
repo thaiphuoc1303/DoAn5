@@ -13,7 +13,6 @@ import android.os.AsyncTask;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -36,7 +35,7 @@ import com.example.doantest.Interface.ClickItemListener;
 import com.example.doantest.Model.FilterModel;
 import com.example.doantest.Model.FontModel;
 import com.example.doantest.Model.ImageModel;
-import com.example.doantest.filter.PhotoLabFilter;
+import com.example.doantest.Function.PhotoLabFilter;
 import com.skydoves.colorpickerview.ColorEnvelope;
 import com.skydoves.colorpickerview.ColorPickerDialog;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
@@ -50,7 +49,6 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PhotoLab {
     Mat matOrigin, matNow,

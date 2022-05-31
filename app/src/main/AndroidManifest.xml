@@ -30,6 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAnTest">
         <activity
+            android:name=".DetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".SaveActivity"
             android:exported="false" />
         <activity

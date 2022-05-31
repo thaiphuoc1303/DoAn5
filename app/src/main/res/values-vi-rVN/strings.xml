@@ -38,5 +38,15 @@
     <string name="sharpen">Làm nét</string>
     <string name="blur_level">Mức độ mờ</string>
     <string name="option">Tùy chọn</string>
+    <string name="download">Tải xuống</string>
+    <string name="delete">Xóa</string>
+    <string name="add_description">Thêm mô tả về bức ảnh này</string>
+    <string name="create_post">Tạo bài đăng</string>
+    <string name="like">" Thích "</string>
+    <string name="comments">" Bình luận "</string>
+    <string name="write_a_comment">Viết bình luận...</string>
+    <string name="edit_this_photo">Chỉnh sửa ảnh này</string>
+    <string name="delete_post">Xóa bài viết</string>
+    <string name="edit_post">Chỉnh sửa bài viết</string>
 
 </resources>

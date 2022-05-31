@@ -21,18 +21,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.doantest.Adapter.LibImageAdapter;
+import com.example.doantest.Adapter.PostManagementAdapter;
 import com.example.doantest.Interface.ClickItemListener;
 import com.example.doantest.Model.ImageModel;
+import com.example.doantest.Model.ResultPostModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
@@ -46,6 +53,10 @@ public class UserFragment extends Fragment {
     FirebaseAuth mAuth;
     FirebaseUser user;
     FirebaseStorage storage;
+    DatabaseReference mDatabase;
+    RecyclerView postview;
+    ArrayList<ResultPostModel> list;
+    PostManagementAdapter adapter;
     Bitmap newAvatar;
     Context context;
     Uri avtUri;
@@ -57,13 +68,37 @@ public class UserFragment extends Fragment {
         btnLogout = view.findViewById(R.id.btnLogout);
         imgAvatar =  view.findViewById(R.id.imgAvatar);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
+        postview = view.findViewById(R.id.postview);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-
+        list = new ArrayList<ResultPostModel>();
         context = getContext();
+        LinearLayoutManager managerLayout = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+        postview.setLayoutManager(managerLayout);
+        adapter = new PostManagementAdapter();
+        postview.setAdapter(adapter);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("public").orderByChild("author/uID").equalTo(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    DataSnapshot results = task.getResult();
+                    for (DataSnapshot postSnapshot: results.getChildren()) {
+                        // TODO: handle the post
+                        ResultPostModel item = postSnapshot.getValue(ResultPostModel.class);
+                        item.setToken(postSnapshot.getKey());
+                        list.add(item);
+                    }
+                    adapter.setData(list);
+                }
+            }
+        });
 
         tvName = view.findViewById(R.id.tvName);
-        Log.e("avt", user.getPhotoUrl().getPath());
         Glide.with(context).load(user.getPhotoUrl()).into(imgAvatar);
         if(user.getDisplayName()!=null){
             tvName.setText(user.getDisplayName());

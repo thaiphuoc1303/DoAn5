@@ -26,6 +26,7 @@
             android:background="@drawable/shape_button_bottom"
             app:srcCompat="@drawable/close_thick_32"
             app:tint="@color/red" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,9 +39,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sharpen"
+                android:textColor="@color/white"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <ImageButton

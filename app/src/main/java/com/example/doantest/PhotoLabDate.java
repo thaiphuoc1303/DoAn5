@@ -15,8 +15,9 @@ public class PhotoLabDate {
         MFormat = new SimpleDateFormat("HH:mm dd:MM");
     }
 
-    public String compare(Date date, Context context) {
-        this.date = date;
+    public String compare(long t, Context context) {
+
+        this.date = new Date(t);
         Date now = new Date();
         long s =  (now.getTime() - date.getTime())/1000;
         if(s> 31536000) {return yFormat.format(date);
