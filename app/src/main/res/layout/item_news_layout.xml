@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:paddingLeft="25dp"
+        />
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        />
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        />
+    <ImageView
+
+        android:id="@+id/imgview"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="5dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:paddingRight="50dp"
+        >
+        <TextView
+            android:id="@+id/tvReact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="1 thích 2 bình luận"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <ImageButton
+            android:id="@+id/btnLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/heart_red"
+            android:background="@drawable/shape_button_bottom"
+            app:tint="#ff00" />
+        <ImageButton
+            android:id="@+id/btnComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/comment"
+            android:background="@drawable/shape_button_bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:tint="#787878" />
+        <ImageButton
+            android:id="@+id/btnShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/share"
+            android:background="@drawable/shape_button_bottom"
+            app:tint="#787878"
+            />
+    </LinearLayout>
+</LinearLayout>

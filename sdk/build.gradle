@@ -99,11 +99,9 @@ android {
     compileSdkVersion 31
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 31
 
-        versionCode openCVersionCode
-        versionName openCVersionName
 
         externalNativeBuild {
             cmake {

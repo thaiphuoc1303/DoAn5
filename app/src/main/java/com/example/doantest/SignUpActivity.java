@@ -16,10 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SignUpActivity extends AppCompatActivity {
     EditText edtName, edtEmail, edtPassword, edtConfirmPassword;
@@ -28,11 +30,6 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getSupportActionBar().hide();
-//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -46,19 +43,38 @@ public class SignUpActivity extends AppCompatActivity {
                     FirebaseAuth mAuth = FirebaseAuth.getInstance();
                     String email = edtEmail.getText().toString().trim();
                     String password = edtPassword.getText().toString().trim();
-                    Log.e("AAA", email);
+                    String name = edtName.getText().toString().trim();
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
-                                        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                                        startActivity(intent);
-                                        finishAffinity();
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Log.e("user", user.getUid());
+                                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                                .setDisplayName(name)
+                                                .build();
+                                        user.updateProfile(profileUpdates)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                                            startActivity(intent);
+                                                            finishAffinity();
+                                                        }
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("fail", e.getMessage());
+                                            }
+                                        });
+
+
                                     } else {
                                         // If sign in fails, display a message to the user.
-                                        Log.e("AAA", "createUserWithEmail:failure", task.getException());
                                         Toast.makeText(SignUpActivity.this, "Authentication failed.",
                                                 Toast.LENGTH_SHORT).show();
                                     }

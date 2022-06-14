@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EE292929"
+    tools:context=".EditActivity">
+
+    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+        android:id="@+id/imgview"
+        android:layout_width="350dp"
+        android:layout_height="500dp"
+        android:layout_centerInParent="true"
+        android:padding="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#A3434343"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_button_bottom"
+            app:tint="@color/red"
+            app:srcCompat="@drawable/close_thick_32" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/btnUndo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_button_bottom"
+            app:srcCompat="@drawable/ic_undo_24"
+            app:tint="@color/white" />
+
+        <ImageButton
+            android:id="@+id/btnRedo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_button_bottom"
+            app:srcCompat="@drawable/ic_redo_24"
+            app:tint="@color/white" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_button_bottom"
+            app:tint="@color/green"
+            app:srcCompat="@drawable/ic_save_32" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+
+        <LinearLayout
+            android:id="@+id/controlview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+        </LinearLayout>
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#A3434343">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <ImageButton
+                    android:id="@+id/btnCrop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    app:srcCompat="@drawable/ic_crop_24"
+                    app:tint="@color/white" />
+                <ImageButton
+                    android:id="@+id/btnContrast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    app:srcCompat="@drawable/contrast_circle"
+                    app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/btnBrightness"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    app:srcCompat="@drawable/ic_brightness"
+                    app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/btnSaturation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    app:tint="@color/white"
+                    app:srcCompat="@drawable/ic_saturation" />
+
+                <ImageButton
+                    android:id="@+id/btnVignette"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    app:tint="@color/white"
+                    app:srcCompat="@drawable/ic_vignette_32" />
+
+                <ImageButton
+                    android:id="@+id/btnText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    android:text="Text"
+                    android:textAlignment="center"
+                    app:srcCompat="@drawable/format_textbox"
+                    app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/btnSharpen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    app:tint="@color/white"
+                    app:srcCompat="@drawable/ic_sharpen" />
+
+                <ImageButton
+                    android:id="@+id/btnBlur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    android:textAlignment="center"
+                    app:srcCompat="@drawable/blur_32"
+                    app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/btnFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_bottom"
+                    android:textAlignment="center"
+                    app:tint="@color/white"
+                    app:srcCompat="@drawable/ic_photo_filter_32" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+
+</RelativeLayout>

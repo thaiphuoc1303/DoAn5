@@ -3,26 +3,108 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable-v24/account_box.xml" value="0.1" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable-v24/contrast_circle.xml" value="0.1985" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable-v24/format_textbox.xml" value="0.1985" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1985" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable-v24/image_filter.xml" value="0.1" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable-v24/image_filter_vintage.xml" value="0.151" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable-v24/image_plus.xml" value="0.1985" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable-v24/select.xml" value="0.1985" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable-v24/select_off.xml" value="0.1985" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/account.xml" value="0.1865" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/account_edit_32.xml" value="0.1" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/bg_menu.xml" value="0.176" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/bg_spinner.xml" value="0.198" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/blur_32.xml" value="0.1565" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/boder_navigation.xml" value="0.1865" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/camera_plus_50.xml" value="0.1" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/cards_heart.xml" value="0.151" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/cards_heart_outline.xml" value="0.151" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/check_bold_32.xml" value="0.1565" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/close_thick_32.xml" value="0.1565" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/comment.xml" value="0.151" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/compare.xml" value="0.1365" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/demo.xml" value="0.1985" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/edt_shape.xml" value="0.151" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/exclamation_thick.xml" value="0.1455" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/heart_gray.xml" value="0.1" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/home.xml" value="0.1865" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_back_32.xml" value="0.174" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_brightness_24.xml" value="0.1475" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_brightness_32.xml" value="0.1565" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_camera_color.xml" value="0.212" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_choose_avatar.xml" value="0.2005" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_crop_24.xml" value="0.1475" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_files_image.xml" value="0.2005" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_notification.xml" value="0.1865" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_photo_filter_32.xml" value="0.1" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_redo_24.xml" value="0.151" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_save_profile.xml" value="0.212" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_text_add.xml" value="0.204" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_text_font.xml" value="0.204" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_text_size.xml" value="0.204" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/ic_vignette_32.xml" value="0.212" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/image_50.xml" value="0.1565" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/image_edit_50.xml" value="0.1565" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/image_filter.xml" value="0.1" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/image_multiple.xml" value="0.1865" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/profile_background.xml" value="0.1565" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/seekbar.xml" value="0.1565" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/seekbar_brightness.xml" value="0.1565" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/seekbar_custom.xml" value="0.151" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/selection_drag_32.xml" value="0.1565" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/selection_remove_32.xml" value="0.1565" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/share.xml" value="0.151" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/drawable/spinner.xml" value="0.2125" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_bokeh_effect.xml" value="0.25" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_camera.xml" value="0.25" />
-        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_demo_test.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_cv_camera.xml" value="0.2359375" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_demo_test.xml" value="0.264" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_detail.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_edit.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_layer.xml" value="0.25" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_main.xml" value="0.2359375" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_main2.xml" value="0.1" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_result_launcher.xml" value="0.11458333333333333" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_save.xml" value="0.264" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_sign_up.xml" value="0.2359375" />
-        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_signin.xml" value="0.11145833333333334" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_signin.xml" value="0.2" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_splash.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_test_camera.xml" value="0.11145833333333334" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/activity_test_touch.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/dialog_bokeh.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/dialog_choose_image.xml" value="0.264" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/dialog_create_post.xml" value="0.264" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/dialog_filter.xml" value="0.1" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/dialog_open_file_cloud.xml" value="0.1" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/dialog_post_detail.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/dialog_sharpen.xml" value="0.16" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/dialog_text.xml" value="0.264" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/dialog_update_profile.xml" value="0.25" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/flagment_home.xml" value="0.24615384615384617" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/font_item.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/fragment_brightness.xml" value="0.264" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/fragment_contrast.xml" value="0.25" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/fragment_library.xml" value="0.25" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/fragment_notification.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/fragment_saturation.xml" value="0.264" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/fragment_select_control.xml" value="0.25" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/fragment_user.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/fragment_vignette.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/icon_list.xml" value="0.264" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/item_comment_layout.xml" value="0.264" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/item_news_layout.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/item_post_layout.xml" value="0.264" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/list_grid_layout.xml" value="0.13645833333333332" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/list_horizontal_layout.xml" value="0.1" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/loading.xml" value="0.10416666666666667" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/layout/post_management_layout.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/menu/menu_edit.xml" value="0.21770833333333334" />
         <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/menu/menu_nav.xml" value="0.25" />
+        <entry key="..\:/Users/PHUOC/AndroidStudioProjects/DoAnTest2/app/src/main/res/xml/provider_paths.xml" value="0.1" />
       </map>
     </option>
   </component>

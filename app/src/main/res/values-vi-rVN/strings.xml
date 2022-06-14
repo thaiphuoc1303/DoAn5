@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DoAnTest</string>
     <string name="SignIn">Đăng nhập</string>
     <string name="email">Email</string>
     <string name="chuacotaikhoan">Bạn chưa có tài khoản? Đăng ký ngay!</string>
@@ -15,4 +14,39 @@
     <string name="library">Thư viện</string>
     <string name="notification">Thông báo</string>
     <string name="logout">Đăng xuất</string>
+    <string name="day_ago">ngày trước</string>
+    <string name="hour_ago">giờ trước</string>
+    <string name="minute_ago">phút trước</string>
+    <string name="just_now">vừa xong</string>
+    <string name="size">Kích thước</string>
+    <string name="done">Xong</string>
+    <string name="clear">Xóa</string>
+    <string name="color">Màu</string>
+    <string name="textSize">Cỡ chữ</string>
+    <string name="cancel">Đóng</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="username">Tên người dùng</string>
+    <string name="Enter_your_name">Nhập tên của bạn</string>
+    <string name="change_avatar">Thay đổi ảnh đại diện</string>
+    <string name="save">Lưu lại</string>
+    <string name="edit_profile">Chỉnh sửa trang cá nhân</string>
+    <string name="brightness">Độ sáng</string>
+    <string name="contrast">Độ tương phản</string>
+    <string name="choose_your_avatar">Chọn hình đại diện của bạn:</string>
+    <string name="update_successfully">Cập nhật thành công!</string>
+    <string name="create_selection">Tạo vùng chọn</string>
+    <string name="sharpen">Làm nét</string>
+    <string name="blur_level">Mức độ mờ</string>
+    <string name="option">Tùy chọn</string>
+    <string name="download">Tải xuống</string>
+    <string name="delete">Xóa</string>
+    <string name="add_description">Thêm mô tả về bức ảnh này</string>
+    <string name="create_post">Tạo bài đăng</string>
+    <string name="like">" Thích "</string>
+    <string name="comments">" Bình luận "</string>
+    <string name="write_a_comment">Viết bình luận...</string>
+    <string name="edit_this_photo">Chỉnh sửa ảnh này</string>
+    <string name="delete_post">Xóa bài viết</string>
+    <string name="edit_post">Chỉnh sửa bài viết</string>
+
 </resources>

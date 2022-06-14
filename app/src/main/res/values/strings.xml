@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DoAnTest</string>
+    <string name="app_name" translatable="false">PhotoLab</string>
     <string name="SignIn">Sign in</string>
     <string name="email">Email</string>
     <string name="chuacotaikhoan">Don\'t have an account? Sign up now!</string>
@@ -15,4 +15,40 @@
     <string name="notification">Notification</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="logout">Log out</string>
+    <string name="day_ago">day ago</string>
+    <string name="hour_ago">hour ago</string>
+    <string name="minute_ago">minute ago</string>
+    <string name="just_now">just now</string>
+    <string name="size">Size</string>
+    <string name="storageReference" translatable="false">gs://doancoso5-test.appspot.com</string>
+    <string name="done">Done</string>
+    <string name="clear">Clear</string>
+    <string name="color">Color</string>
+    <string name="textSize">Text Size</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="username">UserName</string>
+    <string name="Enter_your_name">Enter Your Name</string>
+    <string name="change_avatar">Change Avatar</string>
+    <string name="save">Save</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="brightness">Brightness</string>
+    <string name="contrast">Contrast</string>
+    <string name="choose_your_avatar">Choose your Avatar:</string>
+    <string name="update_successfully">Update successfully!</string>
+    <string name="vignette" translatable="false">Vignette</string>
+    <string name="create_selection">Create selection</string>
+    <string name="sharpen">Sharpen</string>
+    <string name="blur_level">Blur level</string>
+    <string name="option">Option</string>
+    <string name="download">Download</string>
+    <string name="delete">Delete</string>
+    <string name="add_description">Add a description of this photo...</string>
+    <string name="create_post">Create post</string>
+    <string name="like">" Like "</string>
+    <string name="comments">" Comments "</string>
+    <string name="write_a_comment">Write a comment...</string>
+    <string name="edit_this_photo">Edit this photo</string>
+    <string name="delete_post">Delete post</string>
+    <string name="edit_post">Edit post</string>
 </resources>

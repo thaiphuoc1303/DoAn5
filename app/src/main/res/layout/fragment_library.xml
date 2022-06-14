@@ -1,12 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnOpenCamera"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Button" />
+        android:gravity="center"
+        android:padding="0dp"
+        android:id="@+id/layout1"
+        >
+        <ImageButton
+            android:id="@+id/imageButtonCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_button_bottom"
+            app:srcCompat="@drawable/camera_plus_50" />
+
+        <Space
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageButton
+            android:id="@+id/btnimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_button_bottom"
+            app:srcCompat="@drawable/image_50" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="0dp"
+        android:orientation="horizontal"
+
+        tools:visibility="gone">
+
+        <ImageButton
+            android:id="@+id/imgbtnRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tint="@color/red"
+            android:background="@drawable/shape_button_bottom"
+            app:srcCompat="@drawable/close_thick_32" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/imgbtnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tint="@color/green"
+            android:background="@drawable/shape_button_bottom"
+            app:srcCompat="@drawable/image_edit_50" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
+        android:visibility="gone"
+        />
+    <LinearLayout
+        android:id="@+id/layout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bản Nháp"
+                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:padding="10dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/draftView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="100dp"/>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:barrierDirection="top" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:padding="0dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Cloud"
+                android:textColor="@color/black"
+                android:textSize="25sp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/libView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_margin="0dp"
+                android:padding="0dp" />
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>
