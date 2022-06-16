@@ -9,9 +9,10 @@
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#000000"
+        android:fontFamily="@font/uvn_nhan_nang_r"
+        android:textColor="@color/name"
         android:paddingHorizontal="25dp"
         />
     <TextView
@@ -35,6 +36,7 @@
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_marginTop="5dp"
+        android:src="@drawable/load_icon"
         />
     <LinearLayout
         android:layout_width="match_parent"

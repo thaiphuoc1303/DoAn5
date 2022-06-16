@@ -19,7 +19,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -34,9 +33,7 @@ import com.bumptech.glide.Glide;
 import com.example.doantest.Adapter.CommentAdapter;
 import com.example.doantest.Model.CommentModel;
 import com.example.doantest.Model.LikeModel;
-import com.example.doantest.Model.PostModel;
 import com.example.doantest.Model.ResultPostModel;
-import com.example.doantest.Model.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -123,7 +120,7 @@ public class DetailActivity extends AppCompatActivity {
         viewComments = findViewById(R.id.listComments);
         LinearLayoutManager managerLayout = new LinearLayoutManager(DetailActivity.this, RecyclerView.VERTICAL, false);
         viewComments.setLayoutManager(managerLayout);
-        adapter = new CommentAdapter();
+        adapter = new CommentAdapter(this);
         viewComments.setAdapter(adapter);
         DatabaseReference commentsRef = mDatabase.child("comments").child(item.getToken());
         commentsRef.addChildEventListener(new ChildEventListener() {
@@ -493,5 +490,11 @@ public class DetailActivity extends AppCompatActivity {
 
             cursor.close();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_left_to_right_in, R.anim.slide_left_to_right_out);
     }
 }

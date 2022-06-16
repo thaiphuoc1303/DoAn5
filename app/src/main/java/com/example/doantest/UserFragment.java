@@ -45,6 +45,7 @@ import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class UserFragment extends Fragment {
     ImageButton btnLogout, btnEditProfile;
@@ -75,7 +76,7 @@ public class UserFragment extends Fragment {
         context = getContext();
         LinearLayoutManager managerLayout = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
         postview.setLayoutManager(managerLayout);
-        adapter = new PostManagementAdapter();
+        adapter = new PostManagementAdapter(getActivity());
         postview.setAdapter(adapter);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -93,6 +94,7 @@ public class UserFragment extends Fragment {
                         item.setToken(postSnapshot.getKey());
                         list.add(item);
                     }
+                    Collections.sort(list);
                     adapter.setData(list);
                 }
             }

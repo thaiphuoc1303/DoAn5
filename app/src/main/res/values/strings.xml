@@ -51,4 +51,10 @@
     <string name="edit_this_photo">Edit this photo</string>
     <string name="delete_post">Delete post</string>
     <string name="edit_post">Edit post</string>
+    <string name="save_to_your_device">Save to your device</string>
+    <string name="save_to_cloud">Save to Cloud</string>
+    <string name="save_image">Save</string>
+    <string name="facebook_app_id" translatable="false">679514389948869</string>
+    <string name="facebook_client_token" translatable="false">9e374c8331e08c2a0d6b320dee574a84</string>
+    <string name="detail">Detail</string>
 </resources>

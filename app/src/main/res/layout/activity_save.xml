@@ -10,11 +10,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/save"
+        android:text="@string/save_image"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:padding="20dp"
         android:textSize="26sp" />
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="20dp" />
     <ImageView
         android:id="@+id/imgReview"
         android:layout_width="match_parent"
@@ -42,15 +42,16 @@
                 android:background="@drawable/shape_button_bottom"
                 app:tint="@color/green"
                 app:srcCompat="@drawable/ic_save_32" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Luu ve may"
-                android:textSize="20sp"/>
+                android:text="@string/save_to_your_device"
+                android:textSize="20sp" />
 
         </LinearLayout>
         <Space
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content" />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -65,11 +66,12 @@
                 android:background="@drawable/shape_button_bottom"
                 app:tint="@color/blue"
                 app:srcCompat="@drawable/ic_baseline_cloud_upload_24" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Luu len cloud"
-                android:textSize="20sp"/>
+                android:text="@string/save_to_cloud"
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -2,29 +2,25 @@ package com.example.doantest.Adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.doantest.DetailActivity;
-import com.example.doantest.Function.PostFuntion;
 import com.example.doantest.Model.LikeModel;
 import com.example.doantest.Model.ResultPostModel;
 import com.example.doantest.PhotoLabDate;
+import com.example.doantest.ProfileActivity;
 import com.example.doantest.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -60,7 +56,8 @@ public class RvPostAdapter extends  RecyclerView.Adapter<RvPostAdapter.PostAdapt
     @NonNull
     @Override
     public PostAdapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).
+                inflate(R.layout.item_post_layout, parent, false);
         context = parent.getContext();
         return new PostAdapterHolder(view);
     }
@@ -79,6 +76,7 @@ public class RvPostAdapter extends  RecyclerView.Adapter<RvPostAdapter.PostAdapt
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(context).load(uri).into(holder.imgview);
+
             }
         });
 
@@ -109,7 +107,8 @@ public class RvPostAdapter extends  RecyclerView.Adapter<RvPostAdapter.PostAdapt
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra("item", item);
-                ContextCompat.startActivity(context, intent, null);
+                context.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_right_to_left_in,R.anim.slide_right_to_left_out);
             }
         });
         holder.imgview.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +116,8 @@ public class RvPostAdapter extends  RecyclerView.Adapter<RvPostAdapter.PostAdapt
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra("item", item);
-                ContextCompat.startActivity(context, intent, null);
+                context.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_right_to_left_in,R.anim.slide_right_to_left_out);
             }
         });
         holder.btnLike.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +171,22 @@ public class RvPostAdapter extends  RecyclerView.Adapter<RvPostAdapter.PostAdapt
                         notifyDataSetChanged();
                     }
                 });
+            }
+        });
+        holder.btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        holder.tvName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra("uID", item.getAuthor().getuID());
+                intent.putExtra("uName", item.getAuthor().getName());
+                context.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_bottom_to_top_in,R.anim.slide_bottom_to_top_out);
             }
         });
     }

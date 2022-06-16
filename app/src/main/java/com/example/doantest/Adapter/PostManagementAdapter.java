@@ -47,6 +47,9 @@ public class PostManagementAdapter extends  RecyclerView.Adapter<PostManagementA
     ArrayList<ResultPostModel> list;
     Activity activity;
 
+    public PostManagementAdapter(Activity activity) {
+        this.activity = activity;
+    }
 
     public void setData(ArrayList<ResultPostModel>list){
         this.list = list;
@@ -105,7 +108,32 @@ public class PostManagementAdapter extends  RecyclerView.Adapter<PostManagementA
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra("item", item);
-                ContextCompat.startActivity(context, intent, null);
+                context.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_right_to_left_in,
+                        R.anim.slide_right_to_left_out);
+            }
+        });
+        holder.tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDatabase.child("public").child(item.getToken()).removeValue();
+                storageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        list.remove(position);
+                        notifyItemRemoved(position);
+                    }
+                });
+            }
+        });
+        holder.imgview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("item", item);
+                context.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_right_to_left_in,
+                        R.anim.slide_right_to_left_out);
             }
         });
         holder.btnLike.setOnClickListener(new View.OnClickListener() {

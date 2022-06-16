@@ -228,7 +228,7 @@ public class LibraryFragment extends Fragment {
                         fos.write(bitmapdata);
                         fos.flush();
                         fos.close();
-                        link = file.getPath();
+                        this.link = file.getPath();
                     }catch (Exception e){
                         e.printStackTrace();
                     }

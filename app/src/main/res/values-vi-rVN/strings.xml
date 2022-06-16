@@ -48,5 +48,9 @@
     <string name="edit_this_photo">Chỉnh sửa ảnh này</string>
     <string name="delete_post">Xóa bài viết</string>
     <string name="edit_post">Chỉnh sửa bài viết</string>
+    <string name="save_to_your_device">Lưu vào máy</string>
+    <string name="save_to_cloud">Lưu lên Cloud</string>
+    <string name="save_image">Lưu ảnh</string>
+    <string name="detail">Chi tiết</string>
 
 </resources>

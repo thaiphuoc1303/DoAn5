@@ -3,7 +3,7 @@ package com.example.doantest.Model;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
-public class CommentModel {
+public class CommentModel implements Comparable<CommentModel>{
     String uID, name, content, pathPicture, token;
     long time;
 
@@ -62,5 +62,10 @@ public class CommentModel {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    @Override
+    public int compareTo(CommentModel commentModel) {
+        return (this.time <commentModel.getTime()? -1 : (this.time == commentModel.getTime() ? 0 : 1));
     }
 }

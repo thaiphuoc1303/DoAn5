@@ -54,6 +54,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 public class HomeFragment extends Fragment {
@@ -115,6 +117,7 @@ public class HomeFragment extends Fragment {
                         Log.e("token", postSnapshot.getKey());
                         modelArrayList.add(item);
                     }
+                    Collections.sort(modelArrayList);
                     rvPostAdapter.setData(modelArrayList);
                 }
             }

@@ -11,8 +11,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -20,7 +18,6 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
 
 public class MainActivity extends AppCompatActivity {
-    public String mainText;
     BottomNavigationView bottomNavigationView;
     Fragment fragment;
     HomeFragment homeFragment;

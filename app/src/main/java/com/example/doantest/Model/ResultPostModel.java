@@ -6,7 +6,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.io.Serializable;
 
 @IgnoreExtraProperties
-public class ResultPostModel implements Serializable  {
+public class ResultPostModel implements Serializable , Comparable<ResultPostModel> {
     UserModel author;
     String  content, pathPicture, token;
     int likeCount, commentCount;
@@ -81,5 +81,10 @@ public class ResultPostModel implements Serializable  {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    @Override
+    public int compareTo(ResultPostModel postItem){
+        return (this.time <postItem.getTime()? 1 : (this.time == postItem.getTime() ? 0 : -1));
     }
 }

@@ -1,6 +1,8 @@
 package com.example.doantest.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.doantest.Model.CommentModel;
 import com.example.doantest.PhotoLabDate;
+import com.example.doantest.ProfileActivity;
 import com.example.doantest.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -24,6 +27,11 @@ import java.util.ArrayList;
 public class CommentAdapter extends  RecyclerView.Adapter<CommentAdapter.CommentAdapterHolder>{
     Context context;
     ArrayList<CommentModel> list;
+    Activity activity;
+
+    public CommentAdapter(Activity activity) {
+        this.activity = activity;
+    }
 
     public void setData(ArrayList<CommentModel> list){
         this.list = list;
@@ -58,7 +66,16 @@ public class CommentAdapter extends  RecyclerView.Adapter<CommentAdapter.Comment
         else {
             holder.img.setVisibility(View.GONE);
         }
-
+        holder.tvName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra("uID", item.getuID());
+                intent.putExtra("uName", item.getName());
+                context.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_bottom_to_top_in,R.anim.slide_bottom_to_top_out);
+            }
+        });
     }
 
     @Override

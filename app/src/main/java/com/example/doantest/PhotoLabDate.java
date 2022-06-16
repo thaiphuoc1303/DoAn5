@@ -11,8 +11,8 @@ public class PhotoLabDate {
     SimpleDateFormat yFormat, MFormat;
 
     public PhotoLabDate() {
-        yFormat = new SimpleDateFormat("HH:mm dd:MM:yyyy");
-        MFormat = new SimpleDateFormat("HH:mm dd:MM");
+        yFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
+        MFormat = new SimpleDateFormat("HH:mm dd-MM");
     }
 
     public String compare(long t, Context context) {
