@@ -10,12 +10,13 @@
         android:paddingHorizontal="50dp"
         android:paddingVertical="20dp"
         >
+
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_button_bottom"
             android:layout_alignParentLeft="true"
+            android:background="@drawable/shape_button_bottom"
             app:srcCompat="@drawable/ic_camera_color" />
 
         <ImageButton
